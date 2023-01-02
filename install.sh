@@ -17,23 +17,12 @@ if [[ ${PIPESTATUS[0]} -ne 4 ]]; then
     exit 1
 fi
 
-### Installer options
-# Installer home
-installerHome=$PWD
-
-# PHP
-set_php_version=8.1
-
-# MariaDB
-# MariaDB "root" Password
+# Generate random passwords
 mysql_root_pass=$(
     head /dev/urandom | tr -dc A-Za-z0-9 | head -c 16
     echo ''
 )
 
-set_mariadb_version=10.9
-
-# Azuracast
 generate_azuracast_username=$(
     head /dev/urandom | tr -dc A-Za-z0-9 | head -c 16
     echo ''
@@ -44,18 +33,26 @@ generate_azuracast_password=$(
     echo ''
 )
 
+### Installer Options
+# Installer Home
+installerHome=$PWD
+
+# Misc Options
+set_php_version=8.1
+set_mariadb_version=10.9
+
 # AzuraCast Database cant be custom. Migrate function does actually not respect different database names.
 set_azuracast_database=azuracast
 set_azuracast_username=$generate_azuracast_username
 set_azuracast_password=$generate_azuracast_password
 
-# TODO: Use this for Updater integration
-set_azuracast_version=0.0.1
-set_installer_version=0.0.1
+# Show Versions
+set_azuracast_version=0.17.6
+set_installer_version=0.0.2
 
 # Commands
-LONGOPTS=help,version,upgrade,install
-OPTIONS=hvui
+LONGOPTS=help,version,upgrade,install,install_scyonly,upgrade_scyonly
+OPTIONS=hvuixy
 
 if [ "$#" -eq 0 ]; then
     echo "No options specified. Use --help to learn more."
@@ -69,7 +66,7 @@ fi
 
 eval set -- "$PARSED"
 
-d=n h=n v=n u=n p=n
+h=n v=n u=n i=n x=n y=n
 
 while true; do
     case "$1" in
@@ -87,6 +84,14 @@ while true; do
         ;;
     -i | --install)
         i=y
+        break
+        ;;
+    -x | --install_scyonly)
+        x=y
+        break
+        ;;
+    -y | --upgrade_scyonly)
+        y=y
         break
         ;;
     --)
@@ -151,8 +156,29 @@ function azuracast_help() {
 # Print version (-v/--version)
 ##############################################################################
 function azuracast_version() {
-    echo "TODO: Azuracast Version"
+
+    echo "Installer Version: $set_installer_version
+Available AzuraCast Version: $set_azuracast_version"
+
+    azv=/var/azuracast/www/src/Version.php
+    if [ -f "$azv" ]; then
+        FALLBACK_VERSION="$(grep -oE "\FALLBACK_VERSION = .*;" $azv | sed "s/FALLBACK_VERSION = '//g;s/';//g")"
+        echo -en "Installed AzuraCast Version: $FALLBACK_VERSION \n\n"
+    else
+        echo -en "AzuraCast is actually not installed.\n\n"
+    fi
+
     exit 0
+}
+
+##############################################################################
+# Install the latest stable version of Azuracast (-i/--install)
+##############################################################################
+function azuracast_install() {
+    azuracast_git_version="stable"
+
+    export DEBIAN_FRONTEND=noninteractive
+    source install_default.sh
 }
 
 ##############################################################################
@@ -161,13 +187,24 @@ function azuracast_version() {
 function azuracast_upgrade() {
     echo "TODO: Azuracast Upgrade"
     exit 0
+    #source upgrade_default.sh
 }
 
 ##############################################################################
-# Install the latest stable version of Azuracast (-i/--install)
+# Do not Use! (-x/--install_scyonly)
 ##############################################################################
-function azuracast_install() {
-    source install_default.sh
+function azuracast_install_scyonly() {
+    azuracast_git_version="blub"
+    source install_scyonly.sh
+}
+
+##############################################################################
+# Do not Use! (-x/--upgrade_scyonly)
+##############################################################################
+function azuracast_upgrade_scyonly() {
+    echo "TODO: Azuracast Upgrade"
+    exit 0
+    #source upgrade_scyonly.sh
 }
 
 ##############################################################################
@@ -184,17 +221,20 @@ function main() {
         azuracast_version
     fi
 
+    if [ "$i" == "y" ]; then
+        azuracast_install
+    fi
+
     if [ "$u" == "y" ]; then
         azuracast_upgrade
     fi
 
-    if [ "$i" == "y" ]; then
-        azuracast_installer_logging
+    if [ "$x" == "y" ]; then
+        azuracast_install_scyonly
+    fi
 
-        # Its ok if we do it once here. It will work for all other parts as long as the installer runs and is gone after reboot.
-        export DEBIAN_FRONTEND=noninteractive
-
-        azuracast_install
+    if [ "$y" == "y" ]; then
+        azuracast_upgrade_scyonly
     fi
 
 }

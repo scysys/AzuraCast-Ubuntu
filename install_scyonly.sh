@@ -6,7 +6,7 @@
 
 cat <<EOF
 ***************************************************************************
-                        Azuracast $set_azuracast_version Installation
+                        Azuracast Installation
 ***************************************************************************
 
 For more verbose logs, open up a second terminal and use the following command:
@@ -16,22 +16,13 @@ EOF
 
 echo -en "
 ***************************************************************************
-Please be aware. Do not interrupt the install process.
-Sit back, relax and hit nothing on your keyboard!
+You used the install option --install_scyonly.
+This install option will not work on your side.
 
-Depending on your System, installation will take around 25 minutes or more.
-
-Also remember. If only one process failed, reinstall your system with Ubuntu 22.04 and try again!
-This installer may not support any of your preinstalled third party software.
+Please use --install to install AzuraCast´s latest Stable Release $set_azuracast_version. 
 ***************************************************************************
 
 "
-
-# User should read above. So lets wait.
-sleep 6
-
-# ask_for_settings
-source misc/ask_for_settings.sh
 
 # prepare_system
 echo -en "\n- 1/10 prepare_system\n"
@@ -71,26 +62,4 @@ source supervisor/setup.sh &>>"${LOG_FILE}"
 
 # Update and Upgrade System again
 echo -en "\n- 10/10 Set Azuracast Permissions\n"
-source misc/finalize.sh &>>"${LOG_FILE}"
-
-echo -en "
-***************************************************************************
-Whup! Whup! Azuracast Installation is complete.
-  - The server will be accessible at at http://$user_hostname
-
-  - MySQL "root" User: root
-  - MySQL "root" Password: $mysql_root_pass
-
-  - MySQL "Azuracast" DB Name: $set_azuracast_database
-  - MySQL "Azuracast" DB User: $set_azuracast_username
-  - MySQL "Azuracast" DB Password: $set_azuracast_password
-
-Please do not disturb the Azuracast Team with errors in this Installer.
-The Developers only support the Docker variant!
-
-You should delete the Install folder now: $installerHome
-If needed, you will find a log of your installations process here: $installerHome/azuracast_installer.log
-
-Because of Updates, some service restarts and maybe also Kernel ones. I prefer to reboot now.
-***************************************************************************\n
-"
+apt-get update -o DPkg::Lock::Timeout=-1 && apt-get upgrade -o DPkg::Lock::Timeout=-1 -y &>>"${LOG_FILE}"

@@ -13,11 +13,19 @@
 # If you want, you can change it to its original. But you shouldnt ask for help in this case.
 
 # Get required files
-su azuracast <<'EOF'
+if [ $azuracast_git_version = "stable" ]; then
+    su azuracast <<'EOF'
 git clone https://github.com/scysys/AzuraCast.git /var/azuracast/www
 git -C /var/azuracast/www checkout -f stable
 composer --working-dir=/var/azuracast/www install --no-dev --no-ansi --no-interaction
 EOF
+else
+    su azuracast <<'EOF'
+git clone https://github.com/scysys/AzuraCast.git /var/azuracast/www
+git -C /var/azuracast/www checkout -f scy-only
+composer --working-dir=/var/azuracast/www install --no-dev --no-ansi --no-interaction
+EOF
+fi
 
 # Directories 0755
 find /var/azuracast/www -type d -exec chmod 755 {} \;
