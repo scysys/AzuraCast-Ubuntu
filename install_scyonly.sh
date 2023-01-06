@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 ##############################################################################
-# Azuracast Installer / Default, Latest Stable
+# Azuracast Installer / DO NOT USE THIS OPTION
 ##############################################################################
 
 cat <<EOF
@@ -62,4 +62,4 @@ source supervisor/setup.sh &>>"${LOG_FILE}"
 
 # Update and Upgrade System again
 echo -en "\n- 10/10 Set Azuracast Permissions\n"
-apt-get update -o DPkg::Lock::Timeout=-1 && apt-get upgrade -o DPkg::Lock::Timeout=-1 -y &>>"${LOG_FILE}"
+source misc/finalize.sh &>>"${LOG_FILE}"
