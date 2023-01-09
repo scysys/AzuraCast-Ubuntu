@@ -157,7 +157,8 @@ function azuracast_help() {
 ##############################################################################
 function azuracast_version() {
 
-    echo "Installer Version: $set_installer_version
+    echo "---
+Installer Version: $set_installer_version
 Available AzuraCast Version: $set_azuracast_version"
 
     azv=/var/azuracast/www/src/Version.php
@@ -165,10 +166,8 @@ Available AzuraCast Version: $set_azuracast_version"
         FALLBACK_VERSION="$(grep -oE "\FALLBACK_VERSION = .*;" $azv | sed "s/FALLBACK_VERSION = '//g;s/';//g")"
         echo -en "Installed AzuraCast Version: $FALLBACK_VERSION \n\n"
     else
-        echo -en "AzuraCast is actually not installed.\n\n"
+        echo -en "\nAzuraCast is actually not installed.\n---\n"
     fi
-
-    exit 0
 }
 
 ##############################################################################
