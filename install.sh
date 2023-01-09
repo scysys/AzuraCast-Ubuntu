@@ -148,8 +148,20 @@ function azuracast_installer_logging() {
 # Print help (-h/--help)
 ##############################################################################
 function azuracast_help() {
-    echo "TODO: Azuracast Help"
-    exit 0
+    cat <<EOF
+---
+Install and manage your AzuraCast installation.
+
+Installation / Upgrade
+  -i, --install             Install the latest stable version of AzuraCast
+  -u, --upgrade             Upgrade to the latest stable version of AzuraCast
+  -v, --version             Display version information
+  -h, --help                Display this help text
+
+Exit status:
+Returns 0 if successful; non-zero otherwise.
+---
+EOF
 }
 
 ##############################################################################
