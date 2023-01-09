@@ -5,6 +5,7 @@
 ##############################################################################
 
 # Check if everything is right
+apt-get install -o DPkg::Lock::Timeout=-1 -yf
 apt-get update -o DPkg::Lock::Timeout=-1
 apt-get upgrade -o DPkg::Lock::Timeout=-1 -y
 
