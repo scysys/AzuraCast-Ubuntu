@@ -206,6 +206,8 @@ function azuracast_upgrade() {
 ##############################################################################
 function azuracast_install_scyonly() {
     azuracast_git_version="blub"
+
+    export DEBIAN_FRONTEND=noninteractive
     source install_scyonly.sh
 }
 
