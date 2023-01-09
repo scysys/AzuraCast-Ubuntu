@@ -88,9 +88,10 @@ Whup! Whup! Azuracast Installation is complete.
 Please do not disturb the Azuracast Team with errors in this Installer.
 The Developers only support the Docker variant!
 
-You should delete the Install folder now: $installerHome
 If needed, you will find a log of your installations process here: $installerHome/azuracast_installer.log
+Your credentials where also saved to: $installerHome/azuracast_details.txt
+You should delete the Install folder now: $installerHome
 
 Because of Updates, some service restarts and maybe also Kernel ones. I prefer to reboot now.
 ***************************************************************************\n
-"
+" | tee $installerHome/azuracast_details.txt
