@@ -33,4 +33,4 @@ supervisorctl update
 chown -R mysql.mysql /var/lib/mysql
 
 # Restart Supervisor services
-supervisorctl restart all
+supervisorctl restart all || :
