@@ -17,7 +17,11 @@ mysql -e "create user $set_azuracast_username@localhost identified by '$set_azur
 mysql -e "grant all privileges on $set_azuracast_database.* to $set_azuracast_username@localhost;"
 
 # Prepare MySQL-Root-Password
-sed -i "s/changeToMySQLRootPW/$mysql_root_pass/g" mariadb/config/mysql_secure_installation.sql
+if [ $azuracast_git_version = "stable" ]; then
+    sed -i "s/changeToMySQLRootPW/$mysql_root_pass/g" mariadb/config/mysql_secure_installation.sql
+else
+    echo "do nothing, will do it later in another way"
+fi
 
 # Secure MySQL in same way like: mysql_secure_installation
 mysql -sfu root <"mariadb/config/mysql_secure_installation.sql"
