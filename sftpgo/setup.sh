@@ -28,6 +28,6 @@ fi
 
 chown -R azuracast:azuracast /var/azuracast/sftpgo/persist
 
-# Because of Azuracasts Supervisor Integration
+# Because of AzuraCasts Supervisor Integration
 systemctl disable sftpgo
 systemctl stop sftpgo

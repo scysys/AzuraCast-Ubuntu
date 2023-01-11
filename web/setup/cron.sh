@@ -13,6 +13,6 @@ echo "
 chmod 0600 /var/spool/cron/crontabs/azuracast
 chown azuracast.crontab /var/spool/cron/crontabs/azuracast
 
-# Because of Azuracasts Supervisor Integration
+# Because of AzuraCasts Supervisor Integration
 systemctl disable cron
 systemctl stop cron

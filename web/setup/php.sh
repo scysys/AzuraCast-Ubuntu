@@ -17,7 +17,7 @@ touch /run/php/php${set_php_version}-fpm.pid
 cp web/php/php.ini /etc/php/${set_php_version}/fpm/pool.d/azuracast_php.ini
 cp web/php/www.conf /etc/php/${set_php_version}/fpm/pool.d/www.conf
 
-# Because of Azuracasts Supervisor Integration
+# Because of AzuraCasts Supervisor Integration
 systemctl disable php8.1-fpm
 systemctl stop php8.1-fpm
 

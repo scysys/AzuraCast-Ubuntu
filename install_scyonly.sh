@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
 ##############################################################################
-# Azuracast Installer / DO NOT USE THIS OPTION
+# AzuraCast Installer / DO NOT USE THIS OPTION
 ##############################################################################
 
 cat <<EOF
 ***************************************************************************
-                        Azuracast Installation
+            AzuraCast $set_azuracast_version Installation
 ***************************************************************************
 
 For more verbose logs, open up a second terminal and use the following command:
@@ -53,7 +53,7 @@ echo -en "\n- 7/10 setup_azuracast_install\n"
 source azuracast/install.sh &>>"${LOG_FILE}"
 
 # Just check permissions again
-echo -en "\n- 8/10 Set Azuracast Permissions\n"
+echo -en "\n- 8/10 Set AzuraCast Permissions\n"
 chown -R azuracast.azuracast /var/azuracast &>>"${LOG_FILE}"
 
 # setup_supervisor
@@ -61,7 +61,7 @@ echo -en "\n- 9/10 setup_supervisor\n"
 source supervisor/setup.sh &>>"${LOG_FILE}"
 
 # Update and Upgrade System again
-echo -en "\n- 10/10 Set Azuracast Permissions\n"
+echo -en "\n- 10/10 Set AzuraCast Permissions\n"
 source misc/finalize.sh &>>"${LOG_FILE}"
 
 echo -en "\n- End - Forward with main installer\n"

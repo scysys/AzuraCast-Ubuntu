@@ -4,9 +4,9 @@
 # setup_azuracast_install
 ##############################################################################
 
-# Clone Azuracast Stable Branch.
+# Clone AzuraCast Stable Branch.
 #
-# To make sure, that this installer will always work, this is not Azuracasts default Stable branch.
+# To make sure, that this installer will always work, this is not AzuraCasts default Stable branch.
 # Its the same codebase as the Original.
 #
 # But i will make sure, that anything is working before updateing to latest stable version.

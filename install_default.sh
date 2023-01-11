@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
 ##############################################################################
-# Azuracast Installer / Default, Latest Stable
+# AzuraCast Installer / Default, Latest Stable
 ##############################################################################
 
 cat <<EOF
 ***************************************************************************
-                        Azuracast $set_azuracast_version Installation
+            AzuraCast $set_azuracast_version Installation
 ***************************************************************************
 
 For more verbose logs, open up a second terminal and use the following command:
@@ -62,7 +62,7 @@ echo -en "\n- 7/10 setup_azuracast_install\n"
 source azuracast/install.sh &>>"${LOG_FILE}"
 
 # Just check permissions again
-echo -en "\n- 8/10 Set Azuracast Permissions\n"
+echo -en "\n- 8/10 Set AzuraCast Permissions\n"
 chown -R azuracast.azuracast /var/azuracast &>>"${LOG_FILE}"
 
 # setup_supervisor
@@ -70,22 +70,22 @@ echo -en "\n- 9/10 setup_supervisor\n"
 source supervisor/setup.sh &>>"${LOG_FILE}"
 
 # Update and Upgrade System again
-echo -en "\n- 10/10 Set Azuracast Permissions\n"
+echo -en "\n- 10/10 Set AzuraCast Permissions\n"
 source misc/finalize.sh &>>"${LOG_FILE}"
 
 echo -en "
 ***************************************************************************
-Whup! Whup! Azuracast Installation is complete.
+Whup! Whup! AzuraCast Installation is complete.
   - The server will be accessible at at http://$user_hostname
 
   - MySQL "root" User: root
   - MySQL "root" Password: $mysql_root_pass
 
-  - MySQL "Azuracast" DB Name: $set_azuracast_database
-  - MySQL "Azuracast" DB User: $set_azuracast_username
-  - MySQL "Azuracast" DB Password: $set_azuracast_password
+  - MySQL "AzuraCast" DB Name: $set_azuracast_database
+  - MySQL "AzuraCast" DB User: $set_azuracast_username
+  - MySQL "AzuraCast" DB Password: $set_azuracast_password
 
-Please do not disturb the Azuracast Team with errors in this Installer.
+Please do not disturb the AzuraCast Team with errors in this Installer.
 The Developers only support the Docker variant!
 
 If needed, you will find a log of your installations process here: $installerHome/azuracast_installer.log

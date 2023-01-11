@@ -11,7 +11,7 @@ curl -LsS https://r.mariadb.com/downloads/mariadb_repo_setup | sudo bash -s -- -
 
 apt-get install -o DPkg::Lock::Timeout=-1 -y mariadb-server mariadb-client
 
-# Create Azuracast DB
+# Create AzuraCast DB
 mysql -e "create database $set_azuracast_database character set utf8mb4 collate utf8mb4_bin;"
 mysql -e "create user $set_azuracast_username@localhost identified by '$set_azuracast_password';"
 mysql -e "grant all privileges on $set_azuracast_database.* to $set_azuracast_username@localhost;"
@@ -22,6 +22,6 @@ sed -i "s/changeToMySQLRootPW/$mysql_root_pass/g" mariadb/config/mysql_secure_in
 # Secure MySQL in same way like: mysql_secure_installation
 mysql -sfu root <"mariadb/config/mysql_secure_installation.sql"
 
-# Because of Azuracasts Supervisor Integration
+# Because of AzuraCasts Supervisor Integration
 systemctl disable mariadb
 systemctl stop mariadb

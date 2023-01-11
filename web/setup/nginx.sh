@@ -20,6 +20,6 @@ mkdir -p /etc/nginx/azuracast.conf.d/
 # Self Signed SSL
 source web/nginx/self_signed_ssl.sh
 
-# Because of Azuracasts Supervisor Integration
+# Because of AzuraCasts Supervisor Integration
 systemctl disable nginx
 systemctl stop nginx
