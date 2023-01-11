@@ -63,3 +63,5 @@ source supervisor/setup.sh &>>"${LOG_FILE}"
 # Update and Upgrade System again
 echo -en "\n- 10/10 Set Azuracast Permissions\n"
 source misc/finalize.sh &>>"${LOG_FILE}"
+
+echo -en "\n- End - Forward with main installer\n"
