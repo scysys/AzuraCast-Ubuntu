@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
-### Description: Install Azuracast
+### Description: Install AzuraCast
 ### OS: Ubuntu 22.04 LTS
 ### Run this script as root only
 ### mkdir /root/azuracast_installer && cd /root/azuracast_installer && git clone https://github.com/scysys/AzuraCast-Ubuntu.git . && chmod +x install.sh && ./install.sh -i
 
 ##############################################################################
-# Azuracast Installer
+# AzuraCast Installer
 ##############################################################################
 
 set -eu -o errexit -o pipefail -o noclobber -o nounset
@@ -183,7 +183,7 @@ Available AzuraCast Version: $set_azuracast_version"
 }
 
 ##############################################################################
-# Install the latest stable version of Azuracast (-i/--install)
+# Install the latest stable version of AzuraCast (-i/--install)
 ##############################################################################
 function azuracast_install() {
     azuracast_git_version="stable"
@@ -193,10 +193,10 @@ function azuracast_install() {
 }
 
 ##############################################################################
-# Upgrade an existing installation to latest stable version of Azuracast (-u/--upgrade)
+# Upgrade an existing installation to latest stable version of AzuraCast (-u/--upgrade)
 ##############################################################################
 function azuracast_upgrade() {
-    echo "TODO: Azuracast Upgrade"
+    echo "TODO: AzuraCast Upgrade"
     exit 0
     #source upgrade_default.sh
 }
@@ -215,7 +215,7 @@ function azuracast_install_scyonly() {
 # Do not Use! (-x/--upgrade_scyonly)
 ##############################################################################
 function azuracast_upgrade_scyonly() {
-    echo "TODO: Azuracast Upgrade"
+    echo "TODO: AzuraCast Upgrade"
     exit 0
     #source upgrade_scyonly.sh
 }
