@@ -33,13 +33,12 @@ generate_azuracast_password=$(
     echo ''
 )
 
-### Installer Options
+### Global Installer Options
 # Installer Home
 installerHome=$PWD
 
 # Misc Options
 set_php_version=8.1
-set_mariadb_version=10.9
 
 # AzuraCast Database cant be custom. Migrate function does actually not respect different database names.
 set_azuracast_database=azuracast
@@ -189,6 +188,11 @@ function azuracast_install() {
     azuracast_git_version="stable"
 
     export DEBIAN_FRONTEND=noninteractive
+
+    # Options
+    set_mariadb_version=10.9
+
+    # Include source
     source install_default.sh
 }
 
@@ -208,6 +212,11 @@ function azuracast_install_scyonly() {
     azuracast_git_version="blub"
 
     export DEBIAN_FRONTEND=noninteractive
+
+    # Options
+    set_mariadb_version=10.8
+
+    # Include source
     source install_scyonly.sh
 }
 
