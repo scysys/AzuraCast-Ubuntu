@@ -64,4 +64,15 @@ source supervisor/setup.sh &>>"${LOG_FILE}"
 echo -en "\n- 10/10 Set AzuraCast Permissions\n"
 source misc/finalize.sh &>>"${LOG_FILE}"
 
+echo -en "
+***************************************************************************
+Whup! Whup! AzuraCast Installation is complete.
+  - The server will be accessible at at https://$user_hostname:9030
+
+  - MySQL "AzuraCast" DB Name: $set_azuracast_database
+  - MySQL "AzuraCast" DB User: $set_azuracast_username
+  - MySQL "AzuraCast" DB Password: $set_azuracast_password
+***************************************************************************\n
+" | tee /root/credentials/azuracast.txt
+
 echo -en "\n- End - Forward with main installer\n"
