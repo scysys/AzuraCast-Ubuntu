@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 add-apt-repository -y ppa:ondrej/php
+apt update
 
 apt-get install -o DPkg::Lock::Timeout=-1 -y --no-install-recommends php${set_php_version}-fpm php${set_php_version}-cli php${set_php_version}-gd \
   php${set_php_version}-curl php${set_php_version}-xml php${set_php_version}-zip php${set_php_version}-bcmath \
