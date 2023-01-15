@@ -6,8 +6,7 @@ apt update
 apt-get install -o DPkg::Lock::Timeout=-1 -y --no-install-recommends php${set_php_version}-fpm php${set_php_version}-cli php${set_php_version}-gd \
   php${set_php_version}-curl php${set_php_version}-xml php${set_php_version}-zip php${set_php_version}-bcmath \
   php${set_php_version}-gmp php${set_php_version}-mysqlnd php${set_php_version}-mbstring php${set_php_version}-intl \
-  php${set_php_version}-redis php${set_php_version}-maxminddb php${set_php_version}-xdebug \
-  mariadb-client
+  php${set_php_version}-redis php${set_php_version}-maxminddb php${set_php_version}-xdebug
 
 # Copy PHP configuration
 echo "PHP_VERSION=$set_php_version" >>/etc/php/.version
