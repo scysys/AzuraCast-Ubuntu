@@ -66,9 +66,7 @@ source misc/finalize.sh &>>"${LOG_FILE}"
 
 echo -en "
 ***************************************************************************
-Whup! Whup! AzuraCast Installation is complete.
-  - The server will be accessible at at https://$user_hostname:9030
-
+  MySQL Details
   - MySQL "AzuraCast" DB Name: $set_azuracast_database
   - MySQL "AzuraCast" DB User: $set_azuracast_username
   - MySQL "AzuraCast" DB Password: $set_azuracast_password
