@@ -71,6 +71,6 @@ echo -en "
   - MySQL "AzuraCast" DB User: $set_azuracast_username
   - MySQL "AzuraCast" DB Password: $set_azuracast_password
 ***************************************************************************\n
-" | tee /root/credentials/azuracast.txt
+" | tee /root/credentials/credentials_azuracast.txt
 
 echo -en "\n- End - Forward with main installer\n"
