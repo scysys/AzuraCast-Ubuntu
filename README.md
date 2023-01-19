@@ -24,7 +24,7 @@ Just on line for you
 Latest Installer Version
 
 ```
-mkdir /root/azuracast_installer && cd /root/azuracast_installer && git clone https://github.com/scysys/AzuraCast-Ubuntu.git . && chmod +x install.sh && ./install.sh -i
+mkdir /root/azuracast_installer && cd /root/azuracast_installer && git clone https://github.com/scysys/AzuraCast-Ubuntu.git . && git checkout 1f9e6b71720ec05e470b4e2005eee41f311275b8 && chmod +x install.sh && ./install.sh -i
 ```
 
 *"main"-Branch (May not work)*
