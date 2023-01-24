@@ -6,6 +6,7 @@ touch /var/spool/cron/crontabs/azuracast
 # Popluate crontab
 echo "
 * * * * * php /var/azuracast/www/bin/console azuracast:sync:run
+0 0 * * * php /var/azuracast/www/bin/console azuracast:station-queues:clear
 0 */6 * * * tmpreaper 12h /var/azuracast/stations/*/temp
 " >>/var/spool/cron/crontabs/azuracast
 
