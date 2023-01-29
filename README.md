@@ -1,4 +1,4 @@
-# AzuraCast Tradiotional Installer for Ubuntu 22.04
+# AzuraCast Traditional Installer for Ubuntu 22.04
 
 Some things to know
 - This Installer will actually only Support Ubuntu 22.04
