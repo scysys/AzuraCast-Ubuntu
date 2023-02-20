@@ -1,0 +1,10 @@
+# Actually not in use
+[client]
+socket		= /var/lib/mysql/mysqld_client.sock
+
+[mysqld_safe]
+socket		= /var/lib/mysql/mysqld_safe.sock
+
+[mysqld]
+pid-file	= /var/lib/mysql/mysqld.pid
+socket		= /var/lib/mysql/mysqld.sock
