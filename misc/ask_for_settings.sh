@@ -1,18 +1,13 @@
 #!/usr/bin/env bash
 
-##############################################################################
-# ask_for_settings
-##############################################################################
+# Ask the user for their domain/subdomain for AzuraCast
+read -rp "Enter your domain/subdomain for AzuraCast (e.g. mydomain.com or subdomain.domain.com): " user_hostname
 
-### Ask User for Hostname
-read -rp 'Enter your Domain/Subdomain for AzuraCast (e.g., mydomain.com or subdomain.domain.com): ' user_hostname
-
-if [ "$user_hostname" != "" ]; then
-    echo -en "We received your Hostname: $user_hostname\n"
-    #hostname $user_hostname
-fi
-
-if [ "$user_hostname" == "" ]; then
-    echo -en "\n-You have NOT entered a Hostname. Installation aborted!\n"
-    exit 0
+# Check if the user has entered a valid hostname
+if [ -n "$user_hostname" ]; then
+    echo "Hostname set to $user_hostname."
+    #hostname "$user_hostname"
+else
+    echo "No hostname provided. Installation aborted."
+    exit 1
 fi

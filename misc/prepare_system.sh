@@ -1,32 +1,21 @@
 #!/usr/bin/env bash
 
-##############################################################################
-# prepare_system
-##############################################################################
-
-# Make sure System is Up-To-Date
-apt-get update -o DPkg::Lock::Timeout=-1
+# Update package lists and upgrade packages
+apt-get update
 apt-get upgrade -o DPkg::Lock::Timeout=-1 -y
 
-### Reference: docker/common/scripts/prepare.sh
-# Add multiverse repository
+# Add multiverse, universe, and restricted repositories
 add-apt-repository -y multiverse
 add-apt-repository -y universe
 add-apt-repository -y restricted
-apt-get update -o DPkg::Lock::Timeout=-1
+apt-get update
 
-# Install system packages
-apt-get install -o DPkg::Lock::Timeout=-1 -y build-essential pwgen whois zstd software-properties-common
+# Install system packages and dependencies
+apt-get install -o DPkg::Lock::Timeout=-1 -y build-essential pwgen whois zstd software-properties-common \
+    apt-transport-https ca-certificates language-pack-en tini gosu curl wget \
+    tar zip unzip git rsync tzdata gpg-agent openssh-client openssl
 
-## Install HTTPS support for APT.
-apt-get install -o DPkg::Lock::Timeout=-1 -y --no-install-recommends apt-transport-https ca-certificates
-
-## Fix locale. (Why?)
-apt-get install -o DPkg::Lock::Timeout=-1 -y --no-install-recommends language-pack-en
-
-locale-gen en_US
+# Set the system locale to en_US.UTF-8
+# TODO: Not sure why it's here. It's from AzuraCast's default repo. Maybe some checks need the English language, so it's better to leave it for now.
+locale-gen en_US.UTF-8
 update-locale LANG=en_US.UTF-8 LC_CTYPE=en_US.UTF-8
-
-# Install other common scripts.
-apt-get install -o DPkg::Lock::Timeout=-1 -y --no-install-recommends \
-    tini gosu curl wget tar zip unzip git rsync tzdata gpg-agent openssh-client openssl
