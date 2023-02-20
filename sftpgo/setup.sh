@@ -1,19 +1,19 @@
 #!/usr/bin/env bash
 
-##############################################################################
-# setup_sftpgo
-##############################################################################
-
+# Add SFTPGo PPA repository
 add-apt-repository -y ppa:sftpgo/sftpgo
 
+# Install SFTPGo
 apt-get install -o DPkg::Lock::Timeout=-1 -y --no-install-recommends sftpgo
 
+# Copy the SFTPGo configuration file to the appropriate directory
 cp sftpgo/config/sftpgo.json /var/azuracast/sftpgo/sftpgo.json
 
+# Create an empty SFTPGo database file and set the ownership to azuracast user
 touch /var/azuracast/sftpgo/sftpgo.db
 chown -R azuracast:azuracast /var/azuracast/sftpgo
 
-#
+# Generate SSH keys if they don't exist and set the ownership to azuracast user
 if [[ ! -f /var/azuracast/sftpgo/persist/id_rsa ]]; then
     ssh-keygen -t rsa -b 4096 -f /var/azuracast/sftpgo/persist/id_rsa -q -N ""
 fi
@@ -28,6 +28,6 @@ fi
 
 chown -R azuracast:azuracast /var/azuracast/sftpgo/persist
 
-# Because of AzuraCasts Supervisor Integration
+# Disable and stop the SFTPGo service due to AzuraCast's Supervisor integration
 systemctl disable sftpgo
 systemctl stop sftpgo
