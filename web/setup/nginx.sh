@@ -25,7 +25,7 @@ ln -s -f $NGINX_DIR/sites-available/$AZURACAST_CONF_FILE $NGINX_DIR/sites-enable
 
 # Create the azuracast.conf.d directory and generate a self-signed SSL certificate
 mkdir -p $AZURACAST_CONF_DIR
-source web/nginx/self_signed_ssl.sh
+source web/nginx/self_signed_ssl.sh || { echo "Error sourcing self_signed_ssl.sh"; exit 1; }
 
 # Disable and stop nginx service due to AzuraCast's Supervisor integration
 systemctl disable nginx
