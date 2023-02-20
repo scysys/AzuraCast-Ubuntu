@@ -11,6 +11,8 @@ PHP_RUN_DIR=/run/php
 
 # Add Ondrej's PHP repository and update package list
 add-apt-repository -y ppa:ondrej/php
+
+# Update package lists
 apt-get update
 
 # Install PHP packages and required dependencies

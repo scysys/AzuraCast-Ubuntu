@@ -3,6 +3,9 @@
 # Add SFTPGo PPA repository
 add-apt-repository -y ppa:sftpgo/sftpgo
 
+# Update package lists
+apt-get update
+
 # Install SFTPGo
 apt-get install -o DPkg::Lock::Timeout=-1 -y --no-install-recommends sftpgo
 

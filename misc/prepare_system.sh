@@ -8,6 +8,8 @@ apt-get upgrade -o DPkg::Lock::Timeout=-1 -y
 add-apt-repository -y multiverse
 add-apt-repository -y universe
 add-apt-repository -y restricted
+
+# Update package lists
 apt-get update
 
 # Install system packages and dependencies
