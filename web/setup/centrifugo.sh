@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Set variables for the golang version and centrifugo URL
-GOLANG_VERSION=1.17
+GOLANG_VERSION=1.18
 CENTRIFUGO_URL=https://github.com/centrifugal/centrifugo/archive/d465b5932ab786273f081392e1dc8fdfd2d2ec10.tar.gz
 
 # Update the package lists and install the necessary dependencies
@@ -24,8 +24,11 @@ cd /usr/local/centrifugo
 go build -o /usr/local/bin/centrifugo .
 
 # Copy the centrifugo configuration file to the AzuraCast directory
-cp /usr/local/centrifugo/web/centrifugo/config.json /var/azuracast/centrifugo/
+cp $installerHome/web/centrifugo/config.json /var/azuracast/centrifugo/
 
 # Clean up by removing the go directory
 rm -rf $GOPATH
 rm -rf /usr/local/go
+
+# Go back to the installer home directory
+cd $installerHome
