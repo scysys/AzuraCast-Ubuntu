@@ -1,19 +1,17 @@
 #!/usr/bin/env bash
 
-# Create Crontab File
-touch /var/spool/cron/crontabs/azuracast
+# Set variables for the crontab file and the specified jobs
+CRONTAB_FILE=/etc/cron.d/azuracast
+SYNC_JOB="* * * * * azuracast php /var/azuracast/www/bin/console azuracast:sync:run"
+CLEAR_JOB="0 0 * * * azuracast php /var/azuracast/www/bin/console azuracast:station-queues:clear"
+TEMPREAPER_JOB="0 */6 * * * azuracast tmpreaper 12h /var/azuracast/stations/*/temp"
 
-# Popluate crontab
-echo "
-* * * * * php /var/azuracast/www/bin/console azuracast:sync:run
-0 0 * * * php /var/azuracast/www/bin/console azuracast:station-queues:clear
-0 */6 * * * tmpreaper 12h /var/azuracast/stations/*/temp
-" >>/var/spool/cron/crontabs/azuracast
+# Create the AzuraCast user's crontab file
+touch $CRONTAB_FILE
 
-# Make sure Permissions are the right one
-chmod 0600 /var/spool/cron/crontabs/azuracast
-chown azuracast.crontab /var/spool/cron/crontabs/azuracast
+# Populate the crontab with the specified jobs
+echo -e "$SYNC_JOB\n$CLEAR_JOB\n$TEMPREAPER_JOB" > $CRONTAB_FILE
 
-# Because of AzuraCasts Supervisor Integration
-systemctl disable cron
-systemctl stop cron
+# Set the appropriate permissions for the crontab file
+chmod 0600 $CRONTAB_FILE
+chown azuracast.crontab $CRONTAB_FILE

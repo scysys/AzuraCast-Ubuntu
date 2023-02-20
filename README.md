@@ -1,38 +1,37 @@
-# AzuraCast Tradiotional Installer for Ubuntu 22.04
+# AzuraCast Traditional Installer for Ubuntu 22.04
 
-Some things to know
-- This Installer will actually only Support Ubuntu 22.04
-- It will Install AzuraCast in its actual Stable Version without Docker. (Actually this is 0.17.6)
-- It will be usable for Installation and Update processes. (Update not implemented yet)
+**Some things to know:**
 
-If you need help with this great Product check AzuraCast here: https://github.com/AzuraCast/AzuraCast
+- This installer only supports Ubuntu 22.04.
+- It installs AzuraCast in its stable version without Docker (currently version 0.17.6).
+- It can be used for both installation and update processes (though updates are not yet implemented).
 
-Maybe you should take a look at AzuraCast´s great Documentation before ask a question: https://docs.azuracast.com/
+If you need help with this great product, check out AzuraCast here: <https://github.com/AzuraCast/AzuraCast>.
 
-If you want to help the developers of AzuraCast take a look here: https://docs.azuracast.com/en/contribute/donate
+Before asking a question, you may want to take a look at AzuraCast's great documentation here: <https://docs.azuracast.com/>.
 
-## Why i used an own Repository for this here?
+If you want to help the developers of AzuraCast, take a look here: <https://docs.azuracast.com/en/contribute/donate>.
 
-Ill personally plan to using AzuraCast in an modified way. (Need this great AutoDJ only)
+## Why I used my own repository for this
 
-I need an fast way to react on changes, to make modifications and the most important reason is security. I know what i done here. When i using the Repository on ohter sides, it will make me work to check what was changed. I hate work that was not planned, so please understand that i only can ensure this in this way. But it is easy to add this to the default repro. Im personally not feeling, that this is something that the developers wanted outside theire docker business.
+Personally, I plan to use AzuraCast in a modified way (I only need the AutoDJ feature). I need a fast way to react to changes and make modifications, and the most important reason is security. I know what I have done here. If I use the repository on other sites, I will have to check what has been changed. I dislike unplanned work, so please understand that I can only ensure this in this way. However, it is easy to add this to the default repository. Personally, I don't feel that this is something that the developers want outside of their Docker business.
 
-## How to install?
+## How to install
 
-Just on line for you
+Just one line for you.
 
-Latest Installer Version
+Latest installer version:
 
 ```
 mkdir /root/azuracast_installer && cd /root/azuracast_installer && git clone https://github.com/scysys/AzuraCast-Ubuntu.git . && git checkout 1f9e6b71720ec05e470b4e2005eee41f311275b8 && chmod +x install.sh && ./install.sh -i
 ```
 
-*"main"-Branch (May not work)*
+*"main" branch (may not work)*
 
 ```
 mkdir /root/azuracast_installer && cd /root/azuracast_installer && git clone https://github.com/scysys/AzuraCast-Ubuntu.git . && chmod +x install.sh && ./install.sh -i
 ```
 
-Make sure after install that anything is working. Please open installer related issues directly here and not distrub the AzuraCast Developers with errors that are related to this repro here.
+After installation, make sure that everything is working. If you encounter any issues related to the installer, please report them directly here and do not disturb the AzuraCast developers with errors that are related to this repository.
 
-Ill prefer that you do a Reboot after your first install.
+I recommend that you reboot after your first install.

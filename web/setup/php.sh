@@ -1,40 +1,52 @@
 #!/usr/bin/env bash
 
+# Set variables for PHP version and directories
+PHP_VERSION=${set_php_version}
+PHP_DIR=/etc/php/${PHP_VERSION}
+PHP_POOL_DIR=$PHP_DIR/fpm/pool.d
+PHP_MODS_DIR=$PHP_DIR/mods-available
+PHP_CONF_FILE=azuracast_php.ini
+PHP_POOL_FILE=www.conf
+PHP_RUN_DIR=/run/php
+
+# Add Ondrej's PHP repository and update package list
 add-apt-repository -y ppa:ondrej/php
-apt update
+apt-get update
 
-apt-get install -o DPkg::Lock::Timeout=-1 -y --no-install-recommends php${set_php_version}-fpm php${set_php_version}-cli php${set_php_version}-gd \
-  php${set_php_version}-curl php${set_php_version}-xml php${set_php_version}-zip php${set_php_version}-bcmath \
-  php${set_php_version}-gmp php${set_php_version}-mysqlnd php${set_php_version}-mbstring php${set_php_version}-intl \
-  php${set_php_version}-redis php${set_php_version}-maxminddb php${set_php_version}-xdebug
+# Install PHP packages and required dependencies
+apt-get install -y -o DPkg::Lock::Timeout=-1 curl php${PHP_VERSION}-fpm php${PHP_VERSION}-cli php${PHP_VERSION}-gd \
+  php${PHP_VERSION}-curl php${PHP_VERSION}-xml php${PHP_VERSION}-zip \
+  php${PHP_VERSION}-bcmath php${PHP_VERSION}-gmp php${PHP_VERSION}-mysqlnd \
+  php${PHP_VERSION}-mbstring php${PHP_VERSION}-intl php${PHP_VERSION}-redis \
+  php${PHP_VERSION}-maxminddb php${PHP_VERSION}-xdebug \
+  php${PHP_VERSION}-dev zlib1g-dev build-essential
 
-# Copy PHP configuration
-echo "PHP_VERSION=$set_php_version" >>/etc/php/.version
+# Set PHP version
+echo "PHP_VERSION=$PHP_VERSION" >>/etc/php/.version
 
-mkdir -p /run/php
-touch /run/php/php${set_php_version}-fpm.pid
+# Create required directories and files
+mkdir -p $PHP_RUN_DIR
+touch $PHP_RUN_DIR/php${PHP_VERSION}-fpm.pid
 
-cp web/php/php.ini /etc/php/${set_php_version}/fpm/pool.d/azuracast_php.ini
-cp web/php/www.conf /etc/php/${set_php_version}/fpm/pool.d/www.conf
+# Copy PHP configuration files
+cp web/php/$PHP_CONF_FILE $PHP_POOL_DIR/
+cp web/php/$PHP_POOL_FILE $PHP_POOL_DIR/
 
-# Because of AzuraCasts Supervisor Integration
-systemctl disable php8.1-fpm
-systemctl stop php8.1-fpm
+# Disable and stop PHP FPM because of Supervisor
+systemctl disable php${PHP_VERSION}-fpm
+systemctl stop php${PHP_VERSION}-fpm
 
-# Install PHP SPX profiler
-apt-get install -o DPkg::Lock::Timeout=-1 -y --no-install-recommends php${set_php_version}-dev zlib1g-dev build-essential
+# Build and install PHP SPX extension
+git clone https://github.com/NoiseByNorthwest/php-spx.git /tmp/php-spx
+(cd /tmp/php-spx && phpize && ./configure && make && make install)
 
-mkdir -p bd_build/php-spx
-cd bd_build/php-spx
+# Enable PHP SPX extension
+echo "extension=spx.so" >$PHP_MODS_DIR/30-spx.ini
+ln -sf $PHP_MODS_DIR/30-spx.ini $PHP_DIR/cli/conf.d/30-spx.ini
+ln -sf $PHP_MODS_DIR/30-spx.ini $PHP_DIR/fpm/conf.d/30-spx.ini
 
-git clone https://github.com/NoiseByNorthwest/php-spx.git .
-phpize
-./configure
-make
-make install
+# Set the default system php version to the one we want
+update-alternatives --set php /usr/bin/php${PHP_VERSION}
 
-echo "extension=spx.so" >/etc/php/${set_php_version}/mods-available/30-spx.ini
-ln -s /etc/php/${set_php_version}/mods-available/30-spx.ini /etc/php/${set_php_version}/cli/conf.d/30-spx.ini
-ln -s /etc/php/${set_php_version}/mods-available/30-spx.ini /etc/php/${set_php_version}/fpm/conf.d/30-spx.ini
-
-cd $installerHome
+# Clean up by removing the PHP SPX extension source code
+rm -rf /tmp/php-spx

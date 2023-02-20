@@ -15,12 +15,12 @@ tail -f $installerHome/azuracast_installer.log
 EOF
 
 echo -en "
-***************************************************************************
+***********************************************************************
 You used the install option --install_scyonly.
 This install option will not work on your side.
 
-Please use --install to install AzuraCast´s latest Stable Release $set_azuracast_version. 
-***************************************************************************
+Please use --install to install AzuraCast's latest Stable Release $set_azuracast_version.
+***********************************************************************
 
 "
 

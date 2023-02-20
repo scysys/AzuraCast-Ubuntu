@@ -1,4 +1,10 @@
 #!/usr/bin/env bash
 
+# Add the audiowaveform PPA repository
 add-apt-repository -y ppa:chris-needham/ppa
-apt-get install -o DPkg::Lock::Timeout=-1 -y --no-install-recommends audiowaveform
+
+# Update package list
+apt-get update
+
+# Install audiowaveform without recommended packages and with unlimited timeout
+apt-get install -o DPkg::Lock::Timeout=-1 --no-install-recommends -y audiowaveform

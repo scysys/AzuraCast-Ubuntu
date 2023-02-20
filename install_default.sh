@@ -5,9 +5,9 @@
 ##############################################################################
 
 cat <<EOF
-***************************************************************************
+***********************************************************************
             AzuraCast $set_azuracast_version Installation
-***************************************************************************
+***********************************************************************
 
 For more verbose logs, open up a second terminal and use the following command:
 
@@ -15,16 +15,15 @@ tail -f $installerHome/azuracast_installer.log
 EOF
 
 echo -en "
-***************************************************************************
-Please be aware. Do not interrupt the install process.
-Sit back, relax and hit nothing on your keyboard!
+***********************************************************************
+Please be aware: do not interrupt the installation process.
+Sit back, relax, and avoid pressing any keys on your keyboard!
 
-Depending on your System, installation will take around 25 minutes or more.
+Depending on your system, the installation may take around 25 minutes or more.
 
-Also remember. If only one process failed, reinstall your system with Ubuntu 22.04 and try again!
-This installer may not support any of your preinstalled third party software.
-***************************************************************************
-
+Also, please remember: if any single process fails, you should reinstall your system with Ubuntu 22.04 and try again!
+This installer may not support any of your preinstalled third-party software.
+***********************************************************************
 "
 
 # User should read above. So lets wait.
