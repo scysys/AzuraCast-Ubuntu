@@ -7,7 +7,7 @@ apt-get install -o DPkg::Lock::Timeout=-1 -y --no-install-recommends \
 
 # Download and extract the Icecast source code
 curl -fsSL -o icecast.tar.gz https://github.com/AzuraCast/icecast-kh-ac/archive/refs/tags/2.4.0-kh15-ac2.tar.gz
-tar -xzvf icecast.tar.gz --strip-components=1 -C /tmp/icecast
+mkdir /tmp/icecast && tar -xzvf icecast.tar.gz --strip-components=1 -C /tmp/icecast
 
 # Build and install Icecast
 cd /tmp/icecast
