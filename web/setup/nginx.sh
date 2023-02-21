@@ -11,11 +11,12 @@ AZURACAST_CONF_DIR=$NGINX_DIR/$AZURACAST_CONF_FILE.d
 apt-get update
 apt-get install -o DPkg::Lock::Timeout=-1 -y curl nginx openssl
 
-# Backup the original files and copy the AzuraCast configuration files
-for file in $PROXY_PARAMS_FILE $NGINX_CONF_FILE; do
-    mv -f $NGINX_DIR/$file $NGINX_DIR/$file.bak
-    cp web/nginx/$file.conf $NGINX_DIR/$file
-done
+# Backup the original files and copy the default nginx configuration files and enable the AzuraCast nginx configuration
+mv -f $NGINX_DIR/$NGINX_CONF_FILE $NGINX_DIR/$NGINX_CONF_FILE.bak
+cp web/nginx/$NGINX_CONF_FILE $NGINX_DIR/$NGINX_CONF_FILE
+
+mv -f $NGINX_DIR/$PROXY_PARAMS_FILE $NGINX_DIR/$PROXY_PARAMS_FILE.bak
+cp web/nginx/$PROXY_PARAMS_FILE $NGINX_DIR/$PROXY_PARAMS_FILE
 
 # Remove the default site configuration files and enable the AzuraCast site
 rm -f $NGINX_DIR/sites-available/default
@@ -29,4 +30,4 @@ source web/nginx/self_signed_ssl.sh || { echo "Error sourcing self_signed_ssl.sh
 
 # Disable and stop nginx service due to AzuraCast's Supervisor integration
 systemctl disable nginx
-systemctl stop nginx
+systemctl stop nginx 
