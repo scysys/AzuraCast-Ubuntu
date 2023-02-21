@@ -10,8 +10,11 @@ TEMPREAPER_JOB="0 */6 * * * azuracast tmpreaper 12h /var/azuracast/stations/*/te
 touch $CRONTAB_FILE
 
 # Populate the crontab with the specified jobs
-echo -e "$SYNC_JOB\n$CLEAR_JOB\n$TEMPREAPER_JOB" > $CRONTAB_FILE
+echo -e "$SYNC_JOB\n$CLEAR_JOB\n$TEMPREAPER_JOB" >$CRONTAB_FILE
 
 # Set the appropriate permissions for the crontab file
 chmod 0600 $CRONTAB_FILE
 chown azuracast.crontab $CRONTAB_FILE
+
+# Disable and stop service due to AzuraCast's Supervisor integration
+systemctl disable cron
