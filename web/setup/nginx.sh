@@ -16,7 +16,7 @@ mv -f $NGINX_DIR/$NGINX_CONF_FILE $NGINX_DIR/$NGINX_CONF_FILE.bak
 cp web/nginx/$NGINX_CONF_FILE $NGINX_DIR/$NGINX_CONF_FILE
 
 mv -f $NGINX_DIR/$PROXY_PARAMS_FILE $NGINX_DIR/$PROXY_PARAMS_FILE.bak
-cp web/nginx/$PROXY_PARAMS_FILE $NGINX_DIR/$PROXY_PARAMS_FILE
+cp web/nginx/$PROXY_PARAMS_FILE.conf $NGINX_DIR/$PROXY_PARAMS_FILE
 
 # Remove the default site configuration files and enable the AzuraCast site
 rm -f $NGINX_DIR/sites-available/default
