@@ -5,11 +5,11 @@
 ##############################################################################
 
 # It seems that Azuracat is actually need MariaDB 10.9? Actual default Ubuntu version is 10.6
-apt-get install -o DPkg::Lock::Timeout=-1 -y wget software-properties-common dirmngr ca-certificates apt-transport-https
+apt-get install -y wget software-properties-common dirmngr ca-certificates apt-transport-https
 
 curl -LsS https://r.mariadb.com/downloads/mariadb_repo_setup | sudo bash -s -- --mariadb-server-version="mariadb-$set_mariadb_version"
 
-apt-get install -o DPkg::Lock::Timeout=-1 -y mariadb-server mariadb-client
+apt-get install -y mariadb-server mariadb-client
 
 # Create AzuraCast DB
 mysql -e "create database $set_azuracast_database character set utf8mb4 collate utf8mb4_bin;"

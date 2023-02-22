@@ -7,7 +7,7 @@ add-apt-repository -y ppa:sftpgo/sftpgo
 apt-get update
 
 # Install SFTPGo
-apt-get install -o DPkg::Lock::Timeout=-1 -y --no-install-recommends sftpgo
+apt-get install -y --no-install-recommends sftpgo
 
 # Copy the SFTPGo configuration file to the appropriate directory
 cp sftpgo/config/sftpgo.json /var/azuracast/sftpgo/sftpgo.json

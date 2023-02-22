@@ -5,7 +5,7 @@ N_INSTALLER_URL=https://raw.githubusercontent.com/tj/n/master/bin/n
 
 # Update package lists and install dependencies
 apt-get update
-apt-get install -o DPkg::Lock::Timeout=-1 -y curl
+apt-get install -y curl
 
 # Download and run the n installation script to install Node.js LTS version
 curl -L $N_INSTALLER_URL | bash -s -- lts

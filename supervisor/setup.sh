@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Install Supervisor
-apt-get install -o DPkg::Lock::Timeout=-1 -y --no-install-recommends supervisor
+apt-get install -y --no-install-recommends supervisor
 
 CONFIG_DIR="/etc/supervisor/conf.d"
 SUPERVISOR_CONFIG="/etc/supervisor/supervisord.conf"

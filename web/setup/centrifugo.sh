@@ -6,7 +6,7 @@ CENTRIFUGO_URL=https://github.com/centrifugal/centrifugo/archive/d465b5932ab7862
 
 # Update the package lists and install the necessary dependencies
 apt-get update
-apt-get install -o DPkg::Lock::Timeout=-1 -y curl tar gzip ca-certificates
+apt-get install -y curl tar gzip ca-certificates
 
 # Download and install golang
 curl -fsSL https://golang.org/dl/go$GOLANG_VERSION.linux-amd64.tar.gz | tar -C /usr/local -xz

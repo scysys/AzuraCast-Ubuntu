@@ -2,13 +2,13 @@
 
 # Update package lists and install any missing dependencies
 apt-get update
-apt-get install -o DPkg::Lock::Timeout=-1 -yf
+apt-get install -yf
 
 # Upgrade all packages and dependencies
-apt-get upgrade -o DPkg::Lock::Timeout=-1 -y
+apt-get upgrade -y
 
 # Remove not needed packages
-apt-get autoremove -o DPkg::Lock::Timeout=-1 -y
+apt-get autoremove -y
 
 # Create a file to track the installer version and AzuraCast Version
 echo "$set_installer_version" > "/var/azuracast/installer_version.txt"

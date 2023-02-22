@@ -2,7 +2,7 @@
 
 # Update package lists and upgrade packages
 apt-get update
-apt-get upgrade -o DPkg::Lock::Timeout=-1 -y
+apt-get upgrade -y
 
 # Add multiverse, universe, and restricted repositories
 add-apt-repository -y multiverse
@@ -13,7 +13,7 @@ add-apt-repository -y restricted
 apt-get update
 
 # Install system packages and dependencies
-apt-get install -o DPkg::Lock::Timeout=-1 -y build-essential pwgen whois zstd software-properties-common \
+apt-get install -y build-essential pwgen whois zstd software-properties-common \
     apt-transport-https ca-certificates language-pack-en tini gosu curl wget \
     tar zip unzip git rsync tzdata gpg-agent openssh-client openssl
 

@@ -6,7 +6,7 @@ COMPOSER_DOWNLOAD_URL=https://getcomposer.org/installer
 
 # Update package lists and install the necessary dependencies
 apt-get update
-apt-get install -o DPkg::Lock::Timeout=-1 -y curl php-cli php-mbstring git unzip
+apt-get install -y curl php-cli php-mbstring git unzip
 
 # Download the Composer installer and verify the signature
 EXPECTED_SIGNATURE=$(curl -sS https://composer.github.io/installer.sig)

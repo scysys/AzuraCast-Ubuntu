@@ -2,7 +2,7 @@
 
 # Install packages required by Liquidsoap and optional audio plugins
 apt-get update
-apt-get install -o DPkg::Lock::Timeout=-1 -y --no-install-recommends \
+apt-get install -y --no-install-recommends \
   libao-dev libasound2-dev libavcodec-dev libavdevice-dev libavfilter-dev libavformat-dev \
   libavutil-dev libfaad-dev libfdk-aac-dev libflac-dev libfreetype-dev libgd-dev libjack-dev \
   libjpeg-dev liblo-dev libmad0-dev libmagic-dev libmp3lame-dev libopus-dev libpng-dev \

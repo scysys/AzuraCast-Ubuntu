@@ -16,7 +16,7 @@ add-apt-repository -y ppa:ondrej/php
 apt-get update
 
 # Install PHP packages and required dependencies
-apt-get install -y -o DPkg::Lock::Timeout=-1 curl php${PHP_VERSION}-fpm php${PHP_VERSION}-cli php${PHP_VERSION}-gd \
+apt-get install -y curl php${PHP_VERSION}-fpm php${PHP_VERSION}-cli php${PHP_VERSION}-gd \
   php${PHP_VERSION}-curl php${PHP_VERSION}-xml php${PHP_VERSION}-zip \
   php${PHP_VERSION}-bcmath php${PHP_VERSION}-gmp php${PHP_VERSION}-mysqlnd \
   php${PHP_VERSION}-mbstring php${PHP_VERSION}-intl php${PHP_VERSION}-redis \
