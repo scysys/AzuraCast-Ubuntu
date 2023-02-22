@@ -14,5 +14,5 @@ apt-get autoremove -o DPkg::Lock::Timeout=-1 -y
 echo "$set_installer_version" > "/var/azuracast/installer_version.txt"
 chown azuracast:azuracast "/var/azuracast/installer_version.txt"
 
-echo "$set_azuracast_version" > "/var/azuracast/www/azuracast_version.txt"
-chown azuracast:azuracast "/var/azuracast/www/azuracast_version.txt"
+echo "$set_azuracast_version" > "/var/azuracast/azuracast_version.txt"
+chown azuracast:azuracast "/var/azuracast/azuracast_version.txt"
