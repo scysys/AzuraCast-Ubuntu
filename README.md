@@ -23,7 +23,7 @@ Just one line for you.
 Latest installer version:
 
 ```
-mkdir /root/azuracast_installer && cd /root/azuracast_installer && git clone https://github.com/scysys/AzuraCast-Ubuntu.git . && git checkout 1f9e6b71720ec05e470b4e2005eee41f311275b8 && chmod +x install.sh && ./install.sh -i
+mkdir /root/azuracast_installer && cd /root/azuracast_installer && git clone https://github.com/scysys/AzuraCast-Ubuntu.git . && git checkout ed05865b5a9b871a72dfd8c17c1002788de49b9c && chmod +x install.sh && ./install.sh -i
 ```
 
 *"main" branch (may not work)*
@@ -34,4 +34,4 @@ mkdir /root/azuracast_installer && cd /root/azuracast_installer && git clone htt
 
 After installation, make sure that everything is working. If you encounter any issues related to the installer, please report them directly here and do not disturb the AzuraCast developers with errors that are related to this repository.
 
-I recommend that you reboot after your first install.
+*You must reboot after your first install!*
