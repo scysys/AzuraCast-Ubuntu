@@ -10,6 +10,9 @@ apt-get upgrade -o DPkg::Lock::Timeout=-1 -y
 # Remove not needed packages
 apt-get autoremove -o DPkg::Lock::Timeout=-1 -y
 
-# Create a file to track the installer version
-echo "do not delete" > "/var/azuracast/www/installer_version_$set_installer_version.txt"
-chown azuracast:azuracast "/var/azuracast/www/installer_version_$set_installer_version.txt"
+# Create a file to track the installer version and AzuraCast Version
+echo "$set_installer_version" > "/var/azuracast/installer_version.txt"
+chown azuracast:azuracast "/var/azuracast/installer_version.txt"
+
+echo "$set_azuracast_version" > "/var/azuracast/www/azuracast_version.txt"
+chown azuracast:azuracast "/var/azuracast/www/azuracast_version.txt"
