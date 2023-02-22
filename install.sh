@@ -45,9 +45,9 @@ set_azuracast_database=azuracast
 set_azuracast_username=$generate_azuracast_username
 set_azuracast_password=$generate_azuracast_password
 
-# Show Versions
+# Show AzuraCast and Installer Version
 set_azuracast_version=0.17.6
-set_installer_version=0.0.2
+set_installer_version=0.0.4
 
 # Commands
 LONGOPTS=help,version,upgrade,install,install_scyonly,upgrade_scyonly
