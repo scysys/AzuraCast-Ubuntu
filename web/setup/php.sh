@@ -5,7 +5,7 @@ PHP_VERSION=${set_php_version}
 PHP_DIR=/etc/php/${PHP_VERSION}
 PHP_POOL_DIR=$PHP_DIR/fpm/pool.d
 PHP_MODS_DIR=$PHP_DIR/mods-available
-PHP_CONF_FILE=azuracast_php.ini
+PHP_CONF_FILE=php.ini
 PHP_POOL_FILE=www.conf
 PHP_RUN_DIR=/run/php
 
