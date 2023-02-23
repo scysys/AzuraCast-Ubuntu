@@ -12,6 +12,15 @@ add-apt-repository -y restricted
 # Update package lists
 apt-get update
 
+# Issue: https://github.com/scysys/AzuraCast-Ubuntu/issues/1#issuecomment-1440983104
+# Fix RackNerds Image
+if grep -q "^adm:" /etc/group; then
+  echo "adm group already exists, nothing to do."
+else
+  echo "adm group not found. Adding adm group with members syslog and suzy."
+  echo "adm:x:4:syslog,ubuntu" >> /etc/group
+fi
+
 # Install system packages and dependencies
 apt-get install -y build-essential pwgen whois zstd software-properties-common \
     apt-transport-https ca-certificates language-pack-en tini gosu curl wget \
