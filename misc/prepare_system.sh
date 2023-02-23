@@ -17,7 +17,7 @@ apt-get update
 if grep -q "^adm:" /etc/group; then
   echo "adm group already exists, nothing to do."
 else
-  echo "adm group not found. Adding adm group with members syslog and suzy."
+  echo "adm group not found. Adding adm group with members syslog and ubuntu."
   echo "adm:x:4:syslog,ubuntu" >> /etc/group
 fi
 
