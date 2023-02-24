@@ -34,4 +34,18 @@ mkdir /root/azuracast_installer && cd /root/azuracast_installer && git clone htt
 
 After installation, make sure that everything is working. If you encounter any issues related to the installer, please report them directly here and do not disturb the AzuraCast developers with errors that are related to this repository.
 
-*You must reboot after your first install!*
+![#f03c15](https://placehold.co/15x15/f03c15/f03c15.png) *You must reboot after your first install!*
+
+## Available Commands
+Usage: install.sh --help or install.sh -h
+
+*Installation / Upgrade*
+- `-i`, `--install`: Install the latest stable version of AzuraCast.
+- `-v`, `--version`: Display version information.
+- `-h`, `--help`: Display this help text.
+  
+## Future
+- Add upgrade process
+- Add options to update Icecast KH itself
+- Change panel ports over installer
+- We need more?
