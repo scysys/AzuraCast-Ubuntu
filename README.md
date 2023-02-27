@@ -1,4 +1,4 @@
-# AzuraCast Traditional Installer for Ubuntu 22.04
+# AzuraCast Traditional Installer for Ubuntu 22.04 LTS
 
 **Some things to know:**
 
@@ -43,6 +43,11 @@ Usage: install.sh --help or install.sh -h
 - `-i`, `--install`: Install the latest stable version of AzuraCast.
 - `-v`, `--version`: Display version information.
 - `-h`, `--help`: Display this help text.
+
+## Tested with
+- OVH
+- Hetzner
+- Digitalocean
   
 ## Future
 - Add upgrade process
