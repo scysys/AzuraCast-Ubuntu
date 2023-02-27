@@ -23,7 +23,7 @@ Just one line for you.
 Latest installer version:
 
 ```
-mkdir /root/azuracast_installer && cd /root/azuracast_installer && git clone https://github.com/scysys/AzuraCast-Ubuntu.git . && git checkout 90efce5de1e4a09c103f5c653ceac0f7a6e404db && chmod +x install.sh && ./install.sh -i
+mkdir /root/azuracast_installer && cd /root/azuracast_installer && git clone https://github.com/scysys/AzuraCast-Ubuntu.git . && git checkout fba060df6f9314a1da626863b4f33dda9e0c94d5 && chmod +x install.sh && ./install.sh -i
 ```
 
 *"main" branch (may not work)*
