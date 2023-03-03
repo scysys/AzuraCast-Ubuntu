@@ -159,21 +159,28 @@ function azuracast_installer_logging() {
 # Update to Icecast KH 18
 ##############################################################################
 function install_icecastkh_18() {
-    source updater/icecastkh/update_icecastkh_18.sh
+    source tools/icecastkh/update_icecastkh_18.sh
 }
 
 ##############################################################################
 # Update to Icecast KH Latest
 ##############################################################################
 function install_icecastkh_latest() {
-    source updater/icecastkh/update_latest.sh
+    source tools/icecastkh/update_latest.sh
 }
 
 ##############################################################################
 # Update to Icecast KH Master Branch
 ##############################################################################
 function install_icecastkh_master() {
-    source updater/icecastkh/update_master.sh
+    source tools/icecastkh/update_master.sh
+}
+
+##############################################################################
+# Change AzuraCast Ports
+##############################################################################
+function change_azuracast_ports() {
+    source tools/azuracast/change_ports.sh
 }
 
 ##############################################################################
@@ -189,11 +196,12 @@ Installation / Upgrade
   -u, --upgrade                  Upgrade to the latest stable version of AzuraCast
   -v, --version                  Display version information
   -h, --help                     Display this help text
-  
+
+Icecast KH
+
   -w, --icecastkh18              Install / Update to Icecast KH 18
   -t, --icecastkhlatest          Install / Update to latest Icecast KH Build on Github
   -s, --icecastkhmaster          Install / Update to latest Icecast KH based on actual master branch
-
 
 Exit status:
 Returns 0 if successful; non-zero otherwise.
