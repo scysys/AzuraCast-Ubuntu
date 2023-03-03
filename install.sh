@@ -172,7 +172,7 @@ function install_icecastkh_latest() {
 ##############################################################################
 # Update to Icecast KH Master Branch
 ##############################################################################
-function install_icecastkh_latest() {
+function install_icecastkh_master() {
     source updater/icecastkh/update_master.sh
 }
 
