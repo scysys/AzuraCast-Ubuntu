@@ -20,14 +20,6 @@ Personally, I plan to use AzuraCast in a modified way (I only need the AutoDJ fe
 
 Just one line for you.
 
-Latest installer version:
-
-```
-mkdir /root/azuracast_installer && cd /root/azuracast_installer && git clone https://github.com/scysys/AzuraCast-Ubuntu.git . && git checkout fba060df6f9314a1da626863b4f33dda9e0c94d5 && chmod +x install.sh && ./install.sh -i
-```
-
-*"main" branch (may not work)*
-
 ```
 mkdir /root/azuracast_installer && cd /root/azuracast_installer && git clone https://github.com/scysys/AzuraCast-Ubuntu.git . && chmod +x install.sh && ./install.sh -i
 ```
@@ -59,6 +51,8 @@ Usage: install.sh --help or install.sh -h
 - OVH
 - Hetzner
 - Digitalocean
+
+I'll run automatic tests with these 3 Hosters on every version. Ubuntu 22.04 LTS does not mean that some hosters outside are doing their own business with their images. Whatever. If you encounter an error, just open an issue with some logs.
   
 ## Future
 - Add upgrade process
