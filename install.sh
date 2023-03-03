@@ -50,8 +50,8 @@ set_azuracast_version=0.17.6
 set_installer_version=0.0.6
 
 # Commands
-LONGOPTS=help,version,upgrade,install,install_scyonly,upgrade_scyonly,icecastkh18,icecastkhlatest,icecastkhmaster
-OPTIONS=hvuixywts
+LONGOPTS=help,version,upgrade,install,install_scyonly,upgrade_scyonly,icecastkh18,icecastkhlatest,icecastkhmaster,changeports
+OPTIONS=hvuixywtso
 
 if [ "$#" -eq 0 ]; then
     echo "No options specified. Use --help to learn more."
@@ -65,7 +65,7 @@ fi
 
 eval set -- "$PARSED"
 
-h=n v=n u=n i=n x=n y=n w=n t=n s=n
+h=n v=n u=n i=n x=n y=n w=n t=n s=n o=n
 
 while true; do
     case "$1" in
@@ -103,6 +103,10 @@ while true; do
         ;;
     -s | --icecastkhmaster)
         s=y
+        break
+        ;;
+    -o | --changeports)
+        o=y
         break
         ;;
     --)
@@ -187,21 +191,29 @@ function change_azuracast_ports() {
 # Print help (-h/--help)
 ##############################################################################
 function azuracast_help() {
-    cat <<EOF
+cat <<EOF
 ---
 Install and manage your AzuraCast installation.
+
+\e[31mAttention\e[0m
+I have not tested using multiple commands at the same time.
+So please stay safe and execute them one by one, if you need to use another command from here.
 
 Installation / Upgrade
   -i, --install                  Install the latest stable version of AzuraCast
   -u, --upgrade                  Upgrade to the latest stable version of AzuraCast
   -v, --version                  Display version information
   -h, --help                     Display this help text
+  
+Azuracast
+
+  -o, --changeports              Change the Ports on which AzuraCast Panel itself is running
 
 Icecast KH
 
   -w, --icecastkh18              Install / Update to Icecast KH 18
-  -t, --icecastkhlatest          Install / Update to latest Icecast KH Build on Github
-  -s, --icecastkhmaster          Install / Update to latest Icecast KH based on actual master branch
+  -t, --icecastkhlatest          Install / Update to latest Icecast KH build on GitHub
+  -s, --icecastkhmaster          Install / Update to latest Icecast KH based on the actual master branch
 
 Exit status:
 Returns 0 if successful; non-zero otherwise.
@@ -315,6 +327,10 @@ function main() {
 
     if [ "$s" == "y" ]; then
         install_icecastkh_master
+    fi
+
+    if [ "$o" == "y" ]; then
+        change_azuracast_ports
     fi
 
 }
