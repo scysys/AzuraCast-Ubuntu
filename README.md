@@ -40,9 +40,20 @@ After installation, make sure that everything is working. If you encounter any i
 Usage: install.sh --help or install.sh -h
 
 *Installation / Upgrade*
-- `-i`, `--install`: Install the latest stable version of AzuraCast.
-- `-v`, `--version`: Display version information.
-- `-h`, `--help`: Display this help text.
+- `-i`, `--install`:                  Install the latest stable version of AzuraCast
+- `-u`, `--upgrade`:                  Upgrade to the latest stable version of AzuraCast
+- `-v`, `--version`:                  Display version information
+- `-h`, `--help`:                     Display this help text
+  
+*AzuraCast*
+
+- `-o`, `--changeports`:              Change the Ports on which AzuraCast Panel itself is running
+
+*Icecast KH*
+
+- `-w`, `--icecastkh18`:              Install / Update to Icecast KH 18
+- `-t`, `--icecastkhlatest`:          Install / Update to latest Icecast KH build on GitHub
+- `-s`, `--icecastkhmaster`:          Install / Update to latest Icecast KH based on the actual master branch
 
 ## Tested with
 - OVH
