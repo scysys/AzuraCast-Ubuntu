@@ -50,8 +50,8 @@ set_azuracast_version=0.17.6
 set_installer_version=0.0.6
 
 # Commands
-LONGOPTS=help,version,upgrade,install,install_scyonly,upgrade_scyonly,icecastkh18,icecastkhlatest
-OPTIONS=hvuixywt
+LONGOPTS=help,version,upgrade,install,install_scyonly,upgrade_scyonly,icecastkh18,icecastkhlatest,icecastkhmaster
+OPTIONS=hvuixywts
 
 if [ "$#" -eq 0 ]; then
     echo "No options specified. Use --help to learn more."
@@ -65,7 +65,7 @@ fi
 
 eval set -- "$PARSED"
 
-h=n v=n u=n i=n x=n y=n w=n t=n
+h=n v=n u=n i=n x=n y=n w=n t=n s=n
 
 while true; do
     case "$1" in
@@ -99,6 +99,10 @@ while true; do
         ;;
     -t | --icecastkhlatest)
         t=y
+        break
+        ;;
+    -s | --icecastkhmaster)
+        s=y
         break
         ;;
     --)
@@ -155,7 +159,7 @@ function azuracast_installer_logging() {
 # Update to Icecast KH 18
 ##############################################################################
 function install_icecastkh_18() {
-    source updater/icecastkh/update.sh
+    source updater/icecastkh/update_icecastkh_18.sh
 }
 
 ##############################################################################
@@ -163,6 +167,13 @@ function install_icecastkh_18() {
 ##############################################################################
 function install_icecastkh_latest() {
     source updater/icecastkh/update_latest.sh
+}
+
+##############################################################################
+# Update to Icecast KH Master Branch
+##############################################################################
+function install_icecastkh_latest() {
+    source updater/icecastkh/update_master.sh
 }
 
 ##############################################################################
@@ -181,6 +192,7 @@ Installation / Upgrade
   
   -w, --icecastkh18              Install / Update to Icecast KH 18
   -t, --icecastkhlatest          Install / Update to latest Icecast KH Build on Github
+  -s, --icecastkhmaster          Install / Update to latest Icecast KH based on actual master branch
 
 
 Exit status:
@@ -291,6 +303,10 @@ function main() {
 
     if [ "$t" == "y" ]; then
         install_icecastkh_latest
+    fi
+
+    if [ "$s" == "y" ]; then
+        install_icecastkh_master
     fi
 
 }
