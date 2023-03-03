@@ -32,9 +32,20 @@ After installation, make sure that everything is working. If you encounter any i
 Usage: install.sh --help or install.sh -h
 
 *Installation / Upgrade*
-- `-i`, `--install`: Install the latest stable version of AzuraCast.
-- `-v`, `--version`: Display version information.
-- `-h`, `--help`: Display this help text.
+- `-i`, `--install`:                  Install the latest stable version of AzuraCast
+- `-u`, `--upgrade`:                  Upgrade to the latest stable version of AzuraCast
+- `-v`, `--version`:                  Display version information
+- `-h`, `--help`:                     Display this help text
+  
+*AzuraCast*
+
+- `-o`, `--changeports`:              Change the Ports on which AzuraCast Panel itself is running
+
+*Icecast KH*
+
+- `-w`, `--icecastkh18`:              Install / Update to Icecast KH 18
+- `-t`, `--icecastkhlatest`:          Install / Update to latest Icecast KH build on GitHub
+- `-s`, `--icecastkhmaster`:          Install / Update to latest Icecast KH based on the actual master branch
 
 ## Tested with
 - OVH
@@ -45,6 +56,4 @@ I'll run automatic tests with these 3 Hosters on every version. Ubuntu 22.04 LTS
   
 ## Future
 - Add upgrade process
-- Add options to update Icecast KH itself
-- Change panel ports over installer
 - We need more?
