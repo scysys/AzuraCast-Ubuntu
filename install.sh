@@ -195,9 +195,9 @@ cat <<EOF
 ---
 Install and manage your AzuraCast installation.
 
-\033[31mAttention\033[0m
+Attention
 I have not tested using multiple commands at the same time.
-So please stay safe and execute them one by one, if you need to use another command from here.
+If you need to use another command from here stay safe and execute them one by one.
 
 Installation / Upgrade
   -i, --install                  Install the latest stable version of AzuraCast
