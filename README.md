@@ -62,6 +62,4 @@ Usage: install.sh --help or install.sh -h
   
 ## Future
 - Add upgrade process
-- Add options to update Icecast KH itself
-- Change panel ports over installer
 - We need more?
