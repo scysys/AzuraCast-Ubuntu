@@ -13,11 +13,11 @@ cd /tmp/icecast
 make
 make install
 
+# Go back to the installer home directory
+cd $installerHome
+
 # Clean up the Icecast source code and any unnecessary packages
 rm -rf /tmp/icecast
 
 # Start anything
 supervisorctl start all || :
-
-# Go back to the installer home directory
-cd $installerHome
