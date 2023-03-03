@@ -51,7 +51,7 @@ set_installer_version=0.0.6
 
 # Commands
 LONGOPTS=help,version,upgrade,install,install_scyonly,upgrade_scyonly,icecastkh18,icecastkhlatest
-OPTIONS=hvuixywu
+OPTIONS=hvuixywt
 
 if [ "$#" -eq 0 ]; then
     echo "No options specified. Use --help to learn more."
@@ -97,7 +97,7 @@ while true; do
         w=y
         break
         ;;
-    -u | --icecastkhlatest)
+    -t | --icecastkhlatest)
         u=y
         break
         ;;
@@ -289,7 +289,7 @@ function main() {
         install_icecastkh_18
     fi
 
-    if [ "$u" == "y" ]; then
+    if [ "$t" == "y" ]; then
         install_icecastkh_latest
     fi
 
