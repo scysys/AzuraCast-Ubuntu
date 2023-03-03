@@ -11,14 +11,14 @@ function is_numeric() {
 
 # Prompt the user to enter the HTTP and HTTPS ports
 read -rp "Enter HTTP Port: " azuracast_http_port
-read -rp "\nEnter HTTPS Port: " azuracast_https_port
+read -rp "Enter HTTPS Port: " azuracast_https_port
 
 # Check if both variables are numeric using the is_numeric function
 if is_numeric "$azuracast_http_port" && is_numeric "$azuracast_https_port"; then
-    echo "\nHTTP Port: $azuracast_http_port"
-    echo "\nHTTPS Port: $azuracast_https_port"
+    echo "Using HTTP Port: $azuracast_http_port"
+    echo "Using HTTPS Port: $azuracast_https_port"
 else
-    echo "\nError: Please enter a valid number for HTTP and HTTPS ports."
+    echo "Error: Please enter a valid number for HTTP and HTTPS ports."
     exit 1
 fi
 
@@ -30,7 +30,7 @@ cp -f $installerHome/web/nginx/azuracast.conf /etc/nginx/sites-available/azuraca
 
 # Change nginx.conf
 sed -i "s/listen 80/listen $azuracast_http_port/g" /etc/nginx/sites-available/azuracast.conf
-sed -i "s/listen 443/listen $azuracast_http_port/g" /etc/nginx/sites-available/azuracast.conf
+sed -i "s/listen 443/listen $azuracast_https_port/g" /etc/nginx/sites-available/azuracast.conf
 
 # Start anything
 supervisorctl start nginx || :
