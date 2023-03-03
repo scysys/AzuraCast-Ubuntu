@@ -51,7 +51,7 @@ set_installer_version=0.0.6
 
 # Commands
 LONGOPTS=help,version,upgrade,install,install_scyonly,upgrade_scyonly,icecastkh18,icecastkhlatest
-OPTIONS=hvuixywv
+OPTIONS=hvuixywu
 
 if [ "$#" -eq 0 ]; then
     echo "No options specified. Use --help to learn more."
@@ -97,8 +97,8 @@ while true; do
         w=y
         break
         ;;
-    -v | --icecastkhlatest)
-        v=y
+    -u | --icecastkhlatest)
+        u=y
         break
         ;;
     --)
@@ -180,7 +180,7 @@ Installation / Upgrade
   -h, --help                     Display this help text
   
   -w, --icecastkh18              Install / Update to Icecast KH 18
-  -v, --icecastkhlatest          Install / Update to latest Icecast KH Build on Github
+  -u, --icecastkhlatest          Install / Update to latest Icecast KH Build on Github
 
 
 Exit status:
@@ -289,7 +289,7 @@ function main() {
         install_icecastkh_18
     fi
 
-    if [ "$v" == "y" ]; then
+    if [ "$u" == "y" ]; then
         install_icecastkh_latest
     fi
 
