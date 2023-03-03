@@ -11,12 +11,16 @@ function is_numeric() {
 
 # Prompt the user to enter the HTTP and HTTPS ports
 read -rp "Enter HTTP Port: " azuracast_http_port
+echo
+echo "HTTPs Port must be different from HTTP Port."
 read -rp "Enter HTTPS Port: " azuracast_https_port
 
 # Check if both variables are numeric using the is_numeric function
 if is_numeric "$azuracast_http_port" && is_numeric "$azuracast_https_port"; then
+    echo
     echo "Using HTTP Port: $azuracast_http_port"
     echo "Using HTTPS Port: $azuracast_https_port"
+    echo
 else
     echo "Error: Please enter a valid number for HTTP and HTTPS ports."
     exit 1
