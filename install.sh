@@ -65,7 +65,7 @@ fi
 
 eval set -- "$PARSED"
 
-h=n v=n u=n i=n x=n y=n w=n v=n
+h=n v=n u=n i=n x=n y=n w=n t=n
 
 while true; do
     case "$1" in
@@ -180,7 +180,7 @@ Installation / Upgrade
   -h, --help                     Display this help text
   
   -w, --icecastkh18              Install / Update to Icecast KH 18
-  -u, --icecastkhlatest          Install / Update to latest Icecast KH Build on Github
+  -t, --icecastkhlatest          Install / Update to latest Icecast KH Build on Github
 
 
 Exit status:
