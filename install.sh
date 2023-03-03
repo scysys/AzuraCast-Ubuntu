@@ -195,7 +195,7 @@ cat <<EOF
 ---
 Install and manage your AzuraCast installation.
 
-\e[31mAttention\e[0m
+\033[31mAttention\033[0m
 I have not tested using multiple commands at the same time.
 So please stay safe and execute them one by one, if you need to use another command from here.
 
