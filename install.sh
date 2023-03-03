@@ -98,7 +98,7 @@ while true; do
         break
         ;;
     -t | --icecastkhlatest)
-        u=y
+        t=y
         break
         ;;
     --)
