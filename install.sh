@@ -125,20 +125,13 @@ if [ "$(id -u)" -ne 0 ]; then
     exit 1
 fi
 
-### Wait for APT: Not in use. Maybe better variant than -o DPkg::Lock::Timeout=-1
-wait_for_apt_lock() {
-    apt_lock=/var/lib/dpkg/lock-frontend
-    if [ -f "$apt_lock" ]; then
-        echo "$apt_lock exists. So lets wait a little bit."
-        sleep 6
-        # Start new
-        wait_for_apt_lock
-    else
-        echo "$apt_lock not exists."
-    fi
-}
-
 trap exit_handler EXIT
+
+# Loop that repeats the apt-get command until the lock file is released
+while fuser /var/lib/dpkg/lock >/dev/null 2>&1 ; do
+   echo 'Lock file is in use. Waiting 3 seconds...'
+   sleep 3
+done
 
 ##############################################################################
 # Invoked upon EXIT signal from bash
