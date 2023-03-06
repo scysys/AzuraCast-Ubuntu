@@ -50,8 +50,8 @@ set_azuracast_version=0.17.6
 set_installer_version=0.0.6
 
 # Commands
-LONGOPTS=help,version,upgrade,install,install_scyonly,upgrade_scyonly,icecastkh18,icecastkhlatest,icecastkhmaster,changeports
-OPTIONS=hvuixywtso
+LONGOPTS=help,version,upgrade,install,install_scyonly,upgrade_scyonly,icecastkh18,icecastkhlatest,icecastkhmaster,changeports,liquidsoaplatest,liquidsoapcustom
+OPTIONS=hvuixywtsonm
 
 if [ "$#" -eq 0 ]; then
     echo "No options specified. Use --help to learn more."
@@ -65,7 +65,7 @@ fi
 
 eval set -- "$PARSED"
 
-h=n v=n u=n i=n x=n y=n w=n t=n s=n o=n
+h=n v=n u=n i=n x=n y=n w=n t=n s=n o=n n=n m=n
 
 while true; do
     case "$1" in
@@ -107,6 +107,14 @@ while true; do
         ;;
     -o | --changeports)
         o=y
+        break
+        ;;
+    -n | --liquidsoaplatest)
+        n=y
+        break
+        ;;
+    -m | --liquidsoapcustom)
+        m=y
         break
         ;;
     --)
@@ -153,31 +161,45 @@ function azuracast_installer_logging() {
 }
 
 ##############################################################################
-# Update to Icecast KH 18
+# Tools: Update to Icecast KH 18
 ##############################################################################
-function install_icecastkh_18() {
+function tools_update_icecastkh_18() {
     source tools/icecastkh/update_icecastkh_18.sh
 }
 
 ##############################################################################
-# Update to Icecast KH Latest
+# Tools: Update to Icecast KH Latest
 ##############################################################################
-function install_icecastkh_latest() {
+function tools_update_icecastkh_latest() {
     source tools/icecastkh/update_latest.sh
 }
 
 ##############################################################################
-# Update to Icecast KH Master Branch
+# Tools: Update to Icecast KH Master Branch
 ##############################################################################
-function install_icecastkh_master() {
+function tools_update_icecastkh_master() {
     source tools/icecastkh/update_master.sh
 }
 
 ##############################################################################
-# Change AzuraCast Ports
+# Tools: Change AzuraCast Ports
 ##############################################################################
-function change_azuracast_ports() {
+function toosl_change_azuracast_ports() {
     source tools/azuracast/change_ports.sh
+}
+
+##############################################################################
+# Tools: Liquidsoap Latest
+##############################################################################
+function tools_update_liquidsoap() {
+    source tools/liquidsoap/update_latest.sh
+}
+
+##############################################################################
+# Tools: Liquidsoap Custom
+##############################################################################
+function tools_update_liquidsoap_custom() {
+    source tools/liquidsoap/update_custom.sh
 }
 
 ##############################################################################
@@ -207,6 +229,11 @@ Icecast KH
   -w, --icecastkh18              Install / Update to Icecast KH 18
   -t, --icecastkhlatest          Install / Update to latest Icecast KH build on GitHub
   -s, --icecastkhmaster          Install / Update to latest Icecast KH based on the actual master branch
+
+Liquidsoap
+
+  -n, --liquidsoaplatest         Install / Update to the latest released Liquidsoap Version
+  -m, --liquidsoapcustom         Install / Update to a Liquidsoap Version that the user will enter
 
 Exit status:
 Returns 0 if successful; non-zero otherwise.
@@ -311,19 +338,27 @@ function main() {
     fi
 
     if [ "$w" == "y" ]; then
-        install_icecastkh_18
+        tools_update_icecastkh_18
     fi
 
     if [ "$t" == "y" ]; then
-        install_icecastkh_latest
+        tools_update_icecastkh_latest
     fi
 
     if [ "$s" == "y" ]; then
-        install_icecastkh_master
+        tools_update_icecastkh_master
     fi
 
     if [ "$o" == "y" ]; then
-        change_azuracast_ports
+        toosl_change_azuracast_ports
+    fi
+
+    if [ "$n" == "y" ]; then
+        tools_update_liquidsoap
+    fi
+
+    if [ "$m" == "y" ]; then
+        tools_update_liquidsoap_custom
     fi
 
 }
