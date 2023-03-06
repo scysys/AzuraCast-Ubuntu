@@ -12,7 +12,7 @@ apt-get install -y --no-install-recommends \
   frei0r-plugins-dev ladspa-sdk multimedia-audio-plugins swh-plugins tap-plugins lsp-plugins-ladspa
 
 # Download and install Liquidsoap
-ARCHITECTURE=$(dpkg --print-architecture)
+ARCHITECTURE=$(dpkg --print-architecture | awk -F- '{ print $NF }')
 wget -O liquidsoap.deb "https://github.com/savonet/liquidsoap/releases/download/v2.1.2/liquidsoap_2.1.2-ubuntu-jammy-1_${ARCHITECTURE}.deb"
 dpkg -i liquidsoap.deb
 
