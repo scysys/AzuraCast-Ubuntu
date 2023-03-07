@@ -50,7 +50,7 @@ Usage: install.sh --help or install.sh -h
 *Liquidsoap*
 
 - `-n`, `--liquidsoaplatest`:          Install / Update to the latest released Liquidsoap Version
-- `-m`, `--liquidsoapcustom`:          Install / Update to a Liquidsoap Version that the user will enter
+- `-m`, `--liquidsoapcustom`:          Install / Update to a Liquidsoap Version of your choice
 
 ## Tested with
 - OVH
