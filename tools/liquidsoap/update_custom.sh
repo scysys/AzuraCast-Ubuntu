@@ -24,7 +24,7 @@ dpkg -i liquidsoap_$tag_name-ubuntu-jammy-1_$ARCHITECTURE.deb
 apt-get update
 
 # Upgrade Liquidsoap and its dependencies (Just for sure)
-apt-get upgrade liquidsoap
+apt-get upgrade -y liquidsoap
 
 # Clean up
 rm liquidsoap_$tag_name-ubuntu-jammy-1_$ARCHITECTURE.deb
