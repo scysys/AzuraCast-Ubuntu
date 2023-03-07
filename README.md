@@ -47,6 +47,11 @@ Usage: install.sh --help or install.sh -h
 - `-t`, `--icecastkhlatest`:          Install / Update to latest Icecast KH build on GitHub
 - `-s`, `--icecastkhmaster`:          Install / Update to latest Icecast KH based on the actual master branch
 
+*Liquidsoap*
+
+- `-n`, `--liquidsoaplatest`:          Install / Update to the latest released Liquidsoap Version
+- `-m`, `--liquidsoapcustom`:          Install / Update to a Liquidsoap Version that the user will enter
+
 ## Tested with
 - OVH
 - Hetzner
