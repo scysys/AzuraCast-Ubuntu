@@ -9,6 +9,6 @@ source web/setup/dbip.sh || { echo "Error sourcing dbip.sh"; exit 1; }
 source web/setup/nginx.sh || { echo "Error sourcing nginx.sh"; exit 1; }
 source web/setup/php.sh || { echo "Error sourcing php.sh"; exit 1; }
 source web/setup/composer.sh || { echo "Error sourcing composer.sh"; exit 1; }
-source web/setup/tmpreaper.sh || { echo "Error sourcing tmpreaper.sh"; exit 1; } # TODO: Check it later
+source web/setup/tmpreaper.sh || { echo "Error sourcing tmpreaper.sh"; exit 1; }
 source web/setup/zstd.sh || { echo "Error sourcing zstd.sh"; exit 1; }
 source web/setup/npm.sh || { echo "Error sourcing npm.sh"; exit 1; }
