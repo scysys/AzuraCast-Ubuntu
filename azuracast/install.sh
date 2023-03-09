@@ -66,3 +66,6 @@ systemctl stop mariadb
 
 # Build
 source azuracast/build.sh
+
+# /etc/security/limits.conf
+source azuracast/ulimit.sh || { echo "Error sourcing ulimit.sh"; exit 1; }
