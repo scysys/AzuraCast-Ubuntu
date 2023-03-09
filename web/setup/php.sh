@@ -50,5 +50,10 @@ ln -sf $PHP_MODS_DIR/30-spx.ini $PHP_DIR/fpm/conf.d/30-spx.ini
 # Set the default system php version to the one we want
 update-alternatives --set php /usr/bin/php${PHP_VERSION}
 
+# Today i had an internal error on one machine.
+# Not sure if it related to this or my extension installer, so leave this here for know.
+# I must change it anyway when i allow to upgrade from 0.17.6 to newer stable versions, because of php8.2 support.
+systemctl disable php8.2-fpm || :
+
 # Clean up by removing the PHP SPX extension source code
 rm -rf /tmp/php-spx
