@@ -69,3 +69,6 @@ source azuracast/build.sh
 
 # /etc/security/limits.conf
 source azuracast/ulimit.sh || { echo "Error sourcing ulimit.sh"; exit 1; }
+
+# Logs
+source azuracast/logs.sh || { echo "Error sourcing logs.sh"; exit 1; }
