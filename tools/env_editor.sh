@@ -20,14 +20,24 @@ function add_variable {
 # Prompt for variable to delete
 function delete_variable {
     read -p "Enter the variable name to delete: " name
-    sed -i "/^$name=/d" $ENV_FILE
+    if grep -q "^$name=" $ENV_FILE; then
+        sed -i "/^$name=/d" $ENV_FILE
+        echo "Variable $name deleted."
+    else
+        echo "Variable $name not found."
+    fi
 }
 
 # Prompt for variable to update
 function update_variable {
     read -p "Enter the variable name to update: " name
-    read -p "Enter the new variable value: " value
-    sed -i "s/^$name=.*/$name=$value/" $ENV_FILE
+    if grep -q "^$name=" $ENV_FILE; then
+        read -p "Enter the new variable value: " value
+        sed -i "s/^$name=.*/$name=$value/" $ENV_FILE
+        echo "Variable $name updated."
+    else
+        echo "Variable $name not found."
+    fi
 }
 
 # Display current env variables
