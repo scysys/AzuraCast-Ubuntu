@@ -91,6 +91,7 @@ If needed, you will find a log of your installations process here: $installerHom
 Your credentials where also saved to: $installerHome/azuracast_details.txt
 You should delete the Install folder now: $installerHome
 
-Because of Updates, some service restarts and maybe also Kernel ones. You must Reboot now!
+Because of Updates, some service restarts and maybe also Kernel ones.
+YOU MUST REBOOT NOW OR YOU WILL GET ERROR 500!
 ***************************************************************************\n
 " | tee $installerHome/azuracast_details.txt
