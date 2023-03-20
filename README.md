@@ -58,7 +58,12 @@ Usage: install.sh --help or install.sh -h
 - Digitalocean
 
 I'll run automatic tests with these 3 Hosters on every version. Ubuntu 22.04 LTS does not mean that some hosters outside are doing their own business with their images. Whatever. If you encounter an error, just open an issue with some logs.
-  
+
+## Good to Know
+
+- Actually im using it without errors in VPS Systems with 1 vCPU and 2 GB Ram.
+- I'll change the original [php.ini](/web/php/php.ini) that is shipped with AzuraCast [here](https://github.com/AzuraCast/AzuraCast/blob/main/util/docker/web/php/php.ini.tmpl). If you want, you can change it yourself to its original or use some of the predefined templates [here](/web/php). Keep in mind that I edited these configs just based on my knowledge. So don't trust what I've done there and always check yourself before using any of these templates.
+
 ## Future
 - Add upgrade process
 - We need more?
