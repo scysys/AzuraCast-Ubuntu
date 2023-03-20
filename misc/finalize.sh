@@ -16,3 +16,7 @@ chown azuracast:azuracast "/var/azuracast/installer_version.txt"
 
 echo "$set_azuracast_version" > "/var/azuracast/azuracast_version.txt"
 chown azuracast:azuracast "/var/azuracast/azuracast_version.txt"
+
+# AzuraCast ENV Variables
+touch /var/azuracast/www/azuracast.env
+chown azuracast:azuracast "/var/azuracast/www/azuracast.env"
