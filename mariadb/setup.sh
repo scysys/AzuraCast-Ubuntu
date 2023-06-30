@@ -12,7 +12,7 @@ if [ $azuracast_git_version = "stable" ]; then
 else
     apt-get install software-properties-common gnupg2 -y
     apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.asc'
-    add-apt-repository 'deb [arch=amd64] http://mariadb.mirror.globo.tech/repo/10.8/ubuntu jammy main'
+    add-apt-repository -y 'deb [arch=amd64] http://mariadb.mirror.globo.tech/repo/10.8/ubuntu jammy main'
     apt-get update -y
 fi
 
