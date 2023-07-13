@@ -16,13 +16,13 @@
 if [ $azuracast_git_version = "stable" ]; then
     su azuracast <<'EOF'
 git clone https://github.com/scysys/AzuraCast.git /var/azuracast/www
-git -C /var/azuracast/www checkout -f stable
+git -C /var/azuracast/www checkout -f 0.17.6-org
 composer --working-dir=/var/azuracast/www install --no-dev --no-ansi --no-interaction
 EOF
 else
     su azuracast <<'EOF'
 git clone https://github.com/scysys/AzuraCast.git /var/azuracast/www
-git -C /var/azuracast/www checkout -f scy-only
+git -C /var/azuracast/www checkout -f 0.17.6-scy
 composer --working-dir=/var/azuracast/www install --no-dev --no-ansi --no-interaction
 EOF
 fi
