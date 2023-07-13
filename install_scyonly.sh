@@ -2,9 +2,9 @@
 
 # Loop that repeats the apt-get command until the lock file is released
 # It must be double here, because i include this file in other script directly.
-while fuser /var/lib/dpkg/lock >/dev/null 2>&1 ; do
-   echo 'Lock file is in use. Waiting 3 seconds...'
-   sleep 3
+while fuser /var/lib/dpkg/lock >/dev/null 2>&1; do
+  echo 'Lock file is in use. Waiting 3 seconds...'
+  sleep 3
 done
 
 ##############################################################################
@@ -32,43 +32,47 @@ Please use --install to install AzuraCast's latest Stable Release $set_azuracast
 "
 
 # prepare_system
-echo -en "\n- 1/10 prepare_system\n"
+echo -en "\n- 1/11 prepare_system\n"
 source misc/prepare_system.sh &>>"${LOG_FILE}"
 
 # setup_azuracast_user
-echo -en "\n- 2/10 setup_azuracast_user\n"
+echo -en "\n- 2/11 setup_azuracast_user\n"
 source azuracast/user.sh &>>"${LOG_FILE}"
 
 # setup_mariadb
-echo -en "\n- 3/10 setup_mariadb\n"
+echo -en "\n- 3/11 setup_mariadb\n"
 source mariadb/setup.sh &>>"${LOG_FILE}"
 
 # setup_stations
-echo -en "\n- 4/10 setup_stations\n"
+echo -en "\n- 4/11 setup_stations\n"
 source stations/setup.sh &>>"${LOG_FILE}"
 
 # setup_web
-echo -en "\n- 5/10 setup_web\n"
+echo -en "\n- 5/11 setup_web\n"
 source web/setup.sh &>>"${LOG_FILE}"
 
 # setup_sftpgo
-echo -en "\n- 6/10 setup_sftpgo\n"
+echo -en "\n- 6/11 setup_sftpgo\n"
 source sftpgo/setup.sh &>>"${LOG_FILE}"
 
+# setup_redis
+echo -en "\n- 7/11 setup_redis\n"
+source redis/setup.sh &>>"${LOG_FILE}"
+
 # setup_azuracast_install
-echo -en "\n- 7/10 setup_azuracast_install\n"
+echo -en "\n- 8/11 setup_azuracast_install\n"
 source azuracast/install.sh &>>"${LOG_FILE}"
 
 # Just check permissions again
-echo -en "\n- 8/10 Set AzuraCast Permissions\n"
+echo -en "\n- 9/11 Set AzuraCast Permissions\n"
 chown -R azuracast.azuracast /var/azuracast &>>"${LOG_FILE}"
 
 # setup_supervisor
-echo -en "\n- 9/10 setup_supervisor\n"
+echo -en "\n- 10/11 setup_supervisor\n"
 source supervisor/setup.sh &>>"${LOG_FILE}"
 
 # Update and Upgrade System again
-echo -en "\n- 10/10 Set AzuraCast Permissions\n"
+echo -en "\n- 11/11 Set AzuraCast Permissions\n"
 source misc/finalize.sh &>>"${LOG_FILE}"
 
 echo -en "

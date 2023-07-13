@@ -136,9 +136,9 @@ fi
 trap exit_handler EXIT
 
 # Loop that repeats the apt-get command until the lock file is released
-while fuser /var/lib/dpkg/lock >/dev/null 2>&1 ; do
-   echo 'Lock file is in use. Waiting 3 seconds...'
-   sleep 3
+while fuser /var/lib/dpkg/lock >/dev/null 2>&1; do
+    echo 'Lock file is in use. Waiting 3 seconds...'
+    sleep 3
 done
 
 ##############################################################################
@@ -206,7 +206,7 @@ function tools_update_liquidsoap_custom() {
 # Print help (-h/--help)
 ##############################################################################
 function azuracast_help() {
-cat <<EOF
+    cat <<EOF
 ---
 Install and manage your AzuraCast installation.
 
