@@ -5,7 +5,7 @@ apt-get install -y --no-install-recommends supervisor
 
 CONFIG_DIR="/etc/supervisor/conf.d"
 SUPERVISOR_CONFIG="/etc/supervisor/supervisord.conf"
-SERVICE_CONFIG_FILES=("beanstalkd.conf" "centrifugo.conf" "cron.conf" "nginx.conf" "php-fpm.conf" "php-nowplaying.conf" "php-worker.conf" "sftpgo.conf" "mariadb.conf")
+SERVICE_CONFIG_FILES=("beanstalkd.conf" "centrifugo.conf" "cron.conf" "nginx.conf" "php-fpm.conf" "php-nowplaying.conf" "php-worker.conf" "sftpgo.conf" "mariadb.conf" "redis.conf")
 
 mkdir -p "$CONFIG_DIR"
 

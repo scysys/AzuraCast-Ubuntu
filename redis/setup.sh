@@ -13,6 +13,3 @@ systemctl stop redis-server || true
 # Copy redis.conf
 cp redis/redis.conf /etc/redis/redis.conf
 chown redis:redis /etc/redis/redis.conf
-
-# Copy Supervisor conf for Redis
-cp supervisor/conf.d/redis.conf /etc/supervisor/conf.d/redis.conf
