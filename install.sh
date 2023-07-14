@@ -38,7 +38,7 @@ generate_azuracast_password=$(
 installerHome=$PWD
 
 # Misc Options
-set_php_version=8.1
+set_php_version=8.2
 
 # AzuraCast Database cant be custom. Migrate function does actually not respect different database names.
 set_azuracast_database=azuracast
@@ -46,8 +46,7 @@ set_azuracast_username=$generate_azuracast_username
 set_azuracast_password=$generate_azuracast_password
 
 # Show AzuraCast and Installer Version
-set_azuracast_version=0.17.6
-set_installer_version=0.0.6
+set_azuracast_version=0.18.5
 
 # Commands
 LONGOPTS=help,version,upgrade,install,install_scyonly,upgrade_scyonly,icecastkh18,icecastkhlatest,icecastkhmaster,changeports,liquidsoaplatest,liquidsoapcustom
@@ -247,7 +246,6 @@ EOF
 function azuracast_version() {
 
     echo "---
-Installer Version: $set_installer_version
 Available AzuraCast Version: $set_azuracast_version"
 
     azv=/var/azuracast/www/src/Version.php

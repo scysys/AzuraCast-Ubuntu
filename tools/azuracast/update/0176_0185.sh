@@ -80,6 +80,10 @@ chown redis.redis /etc/redis/redis.conf
 # Get supervisor redis.conf
 curl -s -o /etc/supervisor/conf.d/redis.conf https://raw.githubusercontent.com/scysys/AzuraCast-Ubuntu/0.18.5/supervisor/conf.d/redis.conf
 
+# Stop it
+systemctl disable redis-server || :
+systemctl stop redis-server  || :
+
 ### Now its time for AzuraCast
 # ups :p
 rm -rf /var/azuracast/www_tmp/*
@@ -108,5 +112,8 @@ cd /var/azuracast/www/frontend
 export NODE_ENV=production
 npm ci
 npm run build
+
+# Remove
+rm -f /var/azuracast/installer_version.txt
 
 # forget something?

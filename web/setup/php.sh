@@ -38,22 +38,5 @@ cp web/php/$PHP_POOL_FILE $PHP_POOL_DIR/
 systemctl disable php${PHP_VERSION}-fpm
 systemctl stop php${PHP_VERSION}-fpm
 
-# Build and install PHP SPX extension
-git clone https://github.com/NoiseByNorthwest/php-spx.git /tmp/php-spx
-(cd /tmp/php-spx && phpize && ./configure && make && make install)
-
-# Enable PHP SPX extension
-echo "extension=spx.so" >$PHP_MODS_DIR/30-spx.ini
-ln -sf $PHP_MODS_DIR/30-spx.ini $PHP_DIR/cli/conf.d/30-spx.ini
-ln -sf $PHP_MODS_DIR/30-spx.ini $PHP_DIR/fpm/conf.d/30-spx.ini
-
 # Set the default system php version to the one we want
 update-alternatives --set php /usr/bin/php${PHP_VERSION}
-
-# Today i had an internal error on one machine.
-# Not sure if it related to this or my extension installer, so leave this here for know.
-# I must change it anyway when i allow to upgrade from 0.17.6 to newer stable versions, because of php8.2 support.
-systemctl disable php8.2-fpm || :
-
-# Clean up by removing the PHP SPX extension source code
-rm -rf /tmp/php-spx
