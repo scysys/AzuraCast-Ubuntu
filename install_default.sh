@@ -60,17 +60,17 @@ source sftpgo/setup.sh &>>"${LOG_FILE}"
 echo -en "\n- 7/11 setup_redis\n"
 source redis/setup.sh &>>"${LOG_FILE}"
 
+# setup_supervisor
+echo -en "\n- 8/11 setup_supervisor\n"
+source supervisor/setup.sh &>>"${LOG_FILE}"
+
 # setup_azuracast_install
-echo -en "\n- 8/11 setup_azuracast_install\n"
+echo -en "\n- 9/11 setup_azuracast_install\n"
 source azuracast/install.sh &>>"${LOG_FILE}"
 
 # Just check permissions again
-echo -en "\n- 9/11 Set AzuraCast Permissions\n"
+echo -en "\n- 10/11 Set AzuraCast Permissions\n"
 chown -R azuracast.azuracast /var/azuracast &>>"${LOG_FILE}"
-
-# setup_supervisor
-echo -en "\n- 10/11 setup_supervisor\n"
-source supervisor/setup.sh &>>"${LOG_FILE}"
 
 # Update and Upgrade System again
 echo -en "\n- 11/11 Set AzuraCast Permissions\n"
