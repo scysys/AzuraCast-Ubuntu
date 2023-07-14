@@ -13,3 +13,8 @@ systemctl stop redis-server || true
 # Copy redis.conf
 cp redis/redis.conf /etc/redis/redis.conf
 chown redis:redis /etc/redis/redis.conf
+
+# Make sure socket bind will work
+mkdir /run/redis
+chown redis:redis /run/redis
+sudo chmod 770 /run/redis
