@@ -60,9 +60,8 @@ chmod 0640 /var/azuracast/www/env.ini
 chown azuracast.azuracast /var/azuracast/www/env.ini
 
 # Migrate DB
-systemctl start mariadb
 php /var/azuracast/www/bin/console azuracast:setup:migrate
-systemctl stop mariadb
+supervisorctl stop mariadb
 
 # Build
 source azuracast/build.sh
