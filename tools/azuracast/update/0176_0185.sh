@@ -116,16 +116,14 @@ if [ $yn_one = "yes" ]; then
 cd /var/azuracast/www
 git stash
 git pull
-git checkout $newVersion-org
-composer --working-dir=/var/azuracast/www install --no-dev --no-ansi --no-interaction
+git checkout 0.18.5-org
 EOF
 else
     su azuracast <<'EOF'
 cd /var/azuracast/www
 git stash
 git pull
-git checkout $newVersion-scy
-composer --working-dir=/var/azuracast/www install --no-dev --no-ansi --no-interaction
+git checkout 0.18.5-scy
 EOF
 fi
 
