@@ -120,6 +120,10 @@ cd /var/azuracast/www
 git stash
 git pull
 git checkout 0.18.5-org
+cd /var/azuracast/www/frontend
+export NODE_ENV=production
+npm ci
+npm run build
 EOF
 else
     su azuracast <<'EOF'
@@ -127,14 +131,18 @@ cd /var/azuracast/www
 git stash
 git pull
 git checkout 0.18.5-scy
-EOF
-fi
-
-# NPM Build
 cd /var/azuracast/www/frontend
 export NODE_ENV=production
 npm ci
 npm run build
+EOF
+fi
+
+# NPM Build
+#cd /var/azuracast/www/frontend
+#export NODE_ENV=production
+#npm ci
+#npm run build
 
 # Back to InstallerHome
 cd $installerHome
