@@ -10,6 +10,7 @@ newVersion=0.18.5
 
 ### Prepare
 # Ask the user if they are sure and have a backup
+echo -e "\n\n---\n\n"
 read -rp "Do you have a backup of your installation? (yes or no): " yn_one
 echo
 read -rp "Do you really want to upgrade to AzuraCast Stable $newVersion? The machine will also be rebooted! (yes or no): " yn_two
@@ -139,3 +140,6 @@ rm -f /var/azuracast/installer_version.txt
 
 # Update Version (Not needed actually this file. But leave it for now)
 echo "$newVersion" >/var/azuracast/azuracast_version.txt
+
+# Reboot
+shutdown -now
