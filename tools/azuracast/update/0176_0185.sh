@@ -2,34 +2,40 @@
 
 ##############################################################################
 # This will update AzuraCast 0.17.6 Stable to 0.18.5 Stable
-# This will only work if you previusly used this installer here for 0.17.6 Stable
+# This will only work if you previously used this installer for version 0.17.6 Stable.
 ##############################################################################
 
 ### Config
 newVersion=0.18.5
 
-### Prepare
-# Ask user if he is sure and have backup
-read -rp "Do you have a Backup of your installtion? (yes or no): " yn_one
-echo
-read -rp "Do you really want to upgrade to AzuraCast Stable $newVersion? Machine will be also rebooted! (yes or no): " yn_two
+# Loop that repeats the apt-get command until the lock file is released
+while fuser /var/lib/dpkg/lock-frontend >/dev/null 2>&1; do
+    echo 'Lock file is in use. Waiting 3 seconds...'
+    sleep 3
+done
 
-# check answers
-if $yn_one == "yes" or "scy" && $yn_two == "yes" or "scy"; then
+### Prepare
+# Ask the user if they are sure and have a backup
+read -rp "Do you have a backup of your installation? (yes or no): " yn_one
+echo
+read -rp "Do you really want to upgrade to AzuraCast Stable $newVersion? The machine will also be rebooted! (yes or no): " yn_two
+
+# Check answers
+if [[ "$yn_one" == "yes" || "$yn_one" == "scy" ]] && [[ "$yn_two" == "yes" || "$yn_two" == "scy" ]]; then
     echo
-    echo "Upgrade will start now. I am lazy so no logs this time like you have in install process."
+    echo "Upgrade will start now. I am lazy, so no logs this time like you have in the installation process."
     echo
 else
-    echo "Error: Exited your answers where no correct."
+    echo "Error: Your answers were not correct."
     exit 1
 fi
 
 ### AzuraCast related
-# Check if user start the right upgrade script
+# Check if the user started the right upgrade script
 azv=/var/azuracast/www/src/Version.php
 if [ -f "$azv" ]; then
     FALLBACK_VERSION="$(grep -oE "FALLBACK_VERSION = '.*';" "$azv" | sed "s/FALLBACK_VERSION = '//g;s/';//g")"
-    echo -en "AzuraCast Version $FALLBACK_VERSION will be upgraded to $newVersion\n\n"
+    echo -e "AzuraCast Version $FALLBACK_VERSION will be upgraded to $newVersion\n"
 
     if [ "$FALLBACK_VERSION" != "0.17.6" ]; then
         echo "Invalid AzuraCast version. Exiting the script."
@@ -40,10 +46,10 @@ fi
 # Backup AzuraCast DB
 chmod +x /var/azuracast/www/bin/console
 /var/azuracast/www/bin/console azuracast:backup /root/azuracast_installer/tools/azuracast/update/backup/$FALLBACK_VERSION.zip
-echo -en "Backup of $FALLBACK_VERSION is located in /root/azuracast_installer/tools/azuracast/update/backup/$FALLBACK_VERSION.zip\n\n"
+echo -e "Backup of $FALLBACK_VERSION is located in /root/azuracast_installer/tools/azuracast/update/backup/$FALLBACK_VERSION.zip\n"
 
 ### Update System
-# First we have to check is anything up to date
+# First, we have to check if anything is up to date
 export DEBIAN_FRONTEND=noninteractive
 apt-get update
 apt-get -y upgrade
@@ -87,11 +93,11 @@ systemctl stop php8.1-fpm
 systemctl disable php${PHP_VERSION}-fpm
 systemctl stop php${PHP_VERSION}-fpm
 
-# Set the default system php version to the one we want
+# Set the default system PHP version to the one we want
 update-alternatives --set php /usr/bin/php${PHP_VERSION}
 
-### Redis is new at this version
-# Install redis
+### Redis is new in this version
+# Install Redis
 apt-get install -y --no-install-recommends redis-server
 
 # Get redis.conf
@@ -101,15 +107,15 @@ chown redis.redis /etc/redis/redis.conf
 # Get supervisor redis.conf
 curl -s -o /etc/supervisor/conf.d/redis.conf https://raw.githubusercontent.com/scysys/AzuraCast-Ubuntu/$newVersion/supervisor/conf.d/redis.conf
 
-# Stop it
+# Stop Redis
 systemctl disable redis-server || :
 systemctl stop redis-server || :
 
-### Now its time for AzuraCast
+### Now it's time for AzuraCast
 # ups :p
 rm -rf /var/azuracast/www_tmp/*
 
-# Better do as AzuraCast User
+# Better do it as the AzuraCast User
 if [ $yn_one = "yes" ]; then
     su azuracast <<'EOF'
 cd /var/azuracast/www
@@ -137,4 +143,5 @@ npm run build
 # Remove
 rm -f /var/azuracast/installer_version.txt
 
-# forget something?
+# Update Version (Not needed actually this file. But leave it for now)
+echo "$newVersion" >/var/azuracast/azuracast_version.txt
