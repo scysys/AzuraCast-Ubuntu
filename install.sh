@@ -277,12 +277,20 @@ function azuracast_install() {
 ##############################################################################
 function azuracast_upgrade() {
     ### Update Installer
-    git stash && git checkout main && chmod +x install.sh
+    git stash && git pull
+
+    # Move any stashed changes to a temporary branch
+    git stash branch temp_branch
+
+    git checkout 0.18.5 && chmod +x install.sh
 
     source tools/azuracast/update/0176_0185.sh || {
         echo "Error sourcing 0176_0185.sh"
         exit 1
     }
+
+    # Remove the temporary branch if it exists
+    git branch -D temp_branch
 
 }
 
