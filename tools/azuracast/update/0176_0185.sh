@@ -152,4 +152,5 @@ chmod +x /var/azuracast/www/bin/console
 rm -f /var/azuracast/installer_version.txt
 
 # Update Version (Not needed actually this file. But leave it for now)
+rm -f /var/azuracast/azuracast_version.txt
 echo "$newVersion" >/var/azuracast/azuracast_version.txt
