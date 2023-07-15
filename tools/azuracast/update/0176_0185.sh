@@ -13,7 +13,7 @@ newVersion=0.18.5
 echo -e "\n\n---\n\n"
 read -rp "Do you have a backup of your installation? (yes or no): " yn_one
 echo
-read -rp "Do you really want to upgrade to AzuraCast Stable $newVersion? The machine will also be rebooted! (yes or no): " yn_two
+read -rp "Do you really want to upgrade to AzuraCast Stable $newVersion? (yes or no): " yn_two
 
 # Check answers
 if [[ "$yn_one" == "yes" || "$yn_one" == "scy" ]] && [[ "$yn_two" == "yes" || "$yn_two" == "scy" ]]; then
@@ -82,6 +82,9 @@ touch $PHP_RUN_DIR/php${PHP_VERSION}-fpm.pid
 curl -s -o $PHP_POOL_DIR/php.ini https://raw.githubusercontent.com/scysys/AzuraCast-Ubuntu/$newVersion/web/php/php.ini
 curl -s -o $PHP_POOL_DIR/www.conf https://raw.githubusercontent.com/scysys/AzuraCast-Ubuntu/$newVersion/web/php/www.conf
 
+# Copy Supervisors php-fpm.conf
+curl -s -o /etc/supervisor/conf.d/php-fpm.conf https://raw.githubusercontent.com/scysys/AzuraCast-Ubuntu/$newVersion/supervisor/conf.d/php-fpm.conf
+
 # Disable and stop PHP FPM because of Supervisor
 systemctl disable php8.1-fpm
 systemctl stop php8.1-fpm
@@ -133,11 +136,17 @@ export NODE_ENV=production
 npm ci
 npm run build
 
+# Read new config files
+supervisorctl reread
+supervisorctl update
+supervisorctl restart redis
+
+# Migrate Database
+chmod +x /var/azuracast/www/bin/console
+/var/azuracast/www/bin/console azuracast:migrate
+
 # Remove
 rm -f /var/azuracast/installer_version.txt
 
 # Update Version (Not needed actually this file. But leave it for now)
 echo "$newVersion" >/var/azuracast/azuracast_version.txt
-
-# Reboot
-shutdown -now

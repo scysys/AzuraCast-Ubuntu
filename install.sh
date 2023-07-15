@@ -284,13 +284,12 @@ function azuracast_upgrade() {
 
     git checkout 0.18.5 && chmod +x install.sh
 
-    source tools/azuracast/update/0176_0185.sh || {
-        echo "Error sourcing 0176_0185.sh"
-        exit 1
-    }
+    source tools/azuracast/update/0176_0185.sh
 
     # Remove the temporary branch if it exists
     git branch -D temp_branch
+
+    echo -e "Do Reboot NOW!"
 
 }
 
