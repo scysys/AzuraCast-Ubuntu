@@ -2,7 +2,7 @@
 
 # Loop that repeats the apt-get command until the lock file is released
 # It must be double here, because i include this file in other script directly.
-while fuser /var/lib/dpkg/lock >/dev/null 2>&1; do
+while fuser /var/lib/dpkg/lock-frontend >/dev/null 2>&1; do
   echo 'Lock file is in use. Waiting 3 seconds...'
   sleep 3
 done

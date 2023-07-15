@@ -8,12 +8,6 @@
 ### Config
 newVersion=0.18.5
 
-# Loop that repeats the apt-get command until the lock file is released
-while fuser /var/lib/dpkg/lock-frontend >/dev/null 2>&1; do
-    echo 'Lock file is in use. Waiting 3 seconds...'
-    sleep 3
-done
-
 ### Prepare
 # Ask the user if they are sure and have a backup
 read -rp "Do you have a backup of your installation? (yes or no): " yn_one
@@ -45,8 +39,8 @@ fi
 
 # Backup AzuraCast DB
 chmod +x /var/azuracast/www/bin/console
-/var/azuracast/www/bin/console azuracast:backup /root/azuracast_installer/tools/azuracast/update/backup/$FALLBACK_VERSION.zip
-echo -e "Backup of $FALLBACK_VERSION is located in /root/azuracast_installer/tools/azuracast/update/backup/$FALLBACK_VERSION.zip\n"
+/var/azuracast/www/bin/console azuracast:backup $installerHome/tools/azuracast/update/backup/$FALLBACK_VERSION.zip
+echo -e "Backup of $FALLBACK_VERSION is located in $installerHome/tools/azuracast/update/backup/$FALLBACK_VERSION.zip\n"
 
 ### Update System
 # First, we have to check if anything is up to date

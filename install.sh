@@ -276,9 +276,14 @@ function azuracast_install() {
 # Upgrade an existing installation to latest stable version of AzuraCast (-u/--upgrade)
 ##############################################################################
 function azuracast_upgrade() {
-    echo "TODO: AzuraCast Upgrade"
-    exit 0
-    #source upgrade_default.sh
+    ### Update Installer
+    git stash && git checkout main && chmod +x install.sh
+
+    source tools/azuracast/update/0176_0185.sh || {
+        echo "Error sourcing 0176_0185.sh"
+        exit 1
+    }
+
 }
 
 ##############################################################################
