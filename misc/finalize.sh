@@ -16,3 +16,6 @@ chown azuracast:azuracast "/var/azuracast/azuracast_version.txt"
 # AzuraCast ENV Variables
 touch /var/azuracast/www/azuracast.env
 chown azuracast:azuracast "/var/azuracast/www/azuracast.env"
+
+# Update Icecast to latest Version
+source tools/icecastkh/update_latest.sh || { echo "Error sourcing tools/icecastkh/update_latest.sh"; exit 1; }
