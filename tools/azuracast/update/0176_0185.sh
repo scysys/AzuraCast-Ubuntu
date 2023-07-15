@@ -154,3 +154,6 @@ rm -f /var/azuracast/installer_version.txt
 # Update Version (Not needed actually this file. But leave it for now)
 rm -f /var/azuracast/azuracast_version.txt
 echo "$newVersion" >/var/azuracast/azuracast_version.txt
+
+# Error on one Testrun. Not sure where it occurs. But command makes no difference and fix it
+chown -R azuracast.azuracast /var/azuracast/www*
