@@ -1,15 +1,18 @@
 #!/usr/bin/env bash
 
 ##############################################################################
-# This will update AzuraCast 0.17.6 Stable to 0.18.5 Stabel
+# This will update AzuraCast 0.17.6 Stable to 0.18.5 Stable
 # This will only work if you previusly used this installer here for 0.17.6 Stable
 ##############################################################################
+
+### Config
+newVersion=0.18.5
 
 ### Prepare
 # Ask user if he is sure and have backup
 read -rp "Do you have a Backup of your installtion? (yes or no): " yn_one
 echo
-read -rp "Do you really want to upgrade to AzuraCast Stable 0.18.5? Machine will be also rebooted! (yes or no): " yn_two
+read -rp "Do you really want to upgrade to AzuraCast Stable $newVersion? Machine will be also rebooted! (yes or no): " yn_two
 
 # check answers
 if $yn_one == "yes" or "scy" && $yn_two == "yes" or "scy"; then
@@ -20,6 +23,24 @@ else
     echo "Error: Exited your answers where no correct."
     exit 1
 fi
+
+### AzuraCast related
+# Check if user start the right upgrade script
+azv=/var/azuracast/www/src/Version.php
+if [ -f "$azv" ]; then
+    FALLBACK_VERSION="$(grep -oE "FALLBACK_VERSION = '.*';" "$azv" | sed "s/FALLBACK_VERSION = '//g;s/';//g")"
+    echo -en "AzuraCast Version $FALLBACK_VERSION will be upgraded to $newVersion\n\n"
+
+    if [ "$FALLBACK_VERSION" != "0.17.6" ]; then
+        echo "Invalid AzuraCast version. Exiting the script."
+        exit 1
+    fi
+fi
+
+# Backup AzuraCast DB
+chmod +x /var/azuracast/www/bin/console
+/var/azuracast/www/bin/console azuracast:backup /root/azuracast_installer/tools/azuracast/update/backup/$FALLBACK_VERSION.zip
+echo -en "Backup of $FALLBACK_VERSION is located in /root/azuracast_installer/tools/azuracast/update/backup/$FALLBACK_VERSION.zip\n\n"
 
 ### Update System
 # First we have to check is anything up to date
@@ -57,8 +78,8 @@ mkdir -p $PHP_RUN_DIR
 touch $PHP_RUN_DIR/php${PHP_VERSION}-fpm.pid
 
 # Copy PHP configuration files
-curl -s -o $PHP_POOL_DIR/php.ini https://raw.githubusercontent.com/scysys/AzuraCast-Ubuntu/0.18.5/web/php/php.ini
-curl -s -o $PHP_POOL_DIR/www.conf https://raw.githubusercontent.com/scysys/AzuraCast-Ubuntu/0.18.5/web/php/www.conf
+curl -s -o $PHP_POOL_DIR/php.ini https://raw.githubusercontent.com/scysys/AzuraCast-Ubuntu/$newVersion/web/php/php.ini
+curl -s -o $PHP_POOL_DIR/www.conf https://raw.githubusercontent.com/scysys/AzuraCast-Ubuntu/$newVersion/web/php/www.conf
 
 # Disable and stop PHP FPM because of Supervisor
 systemctl disable php8.1-fpm
@@ -69,20 +90,20 @@ systemctl stop php${PHP_VERSION}-fpm
 # Set the default system php version to the one we want
 update-alternatives --set php /usr/bin/php${PHP_VERSION}
 
-### Redis is new at 0.18.5
+### Redis is new at this version
 # Install redis
 apt-get install -y --no-install-recommends redis-server
 
 # Get redis.conf
-curl -s -o /etc/redis/redis.conf https://raw.githubusercontent.com/scysys/AzuraCast-Ubuntu/0.18.5/redis/redis.conf
+curl -s -o /etc/redis/redis.conf https://raw.githubusercontent.com/scysys/AzuraCast-Ubuntu/$newVersion/redis/redis.conf
 chown redis.redis /etc/redis/redis.conf
 
 # Get supervisor redis.conf
-curl -s -o /etc/supervisor/conf.d/redis.conf https://raw.githubusercontent.com/scysys/AzuraCast-Ubuntu/0.18.5/supervisor/conf.d/redis.conf
+curl -s -o /etc/supervisor/conf.d/redis.conf https://raw.githubusercontent.com/scysys/AzuraCast-Ubuntu/$newVersion/supervisor/conf.d/redis.conf
 
 # Stop it
 systemctl disable redis-server || :
-systemctl stop redis-server  || :
+systemctl stop redis-server || :
 
 ### Now its time for AzuraCast
 # ups :p
@@ -94,7 +115,7 @@ if [ $yn_one = "yes" ]; then
 cd /var/azuracast/www
 git stash
 git pull
-git checkout 0.18.5-org
+git checkout $newVersion-org
 composer --working-dir=/var/azuracast/www install --no-dev --no-ansi --no-interaction
 EOF
 else
@@ -102,7 +123,7 @@ else
 cd /var/azuracast/www
 git stash
 git pull
-git checkout 0.18.5-scy
+git checkout $newVersion-scy
 composer --working-dir=/var/azuracast/www install --no-dev --no-ansi --no-interaction
 EOF
 fi
