@@ -290,7 +290,6 @@ function azuracast_upgrade() {
     git branch -D temp_branch
 
     echo -e "Do Reboot NOW!"
-
 }
 
 ##############################################################################
