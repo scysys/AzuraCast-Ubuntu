@@ -22,6 +22,7 @@ Sit back, relax, and avoid pressing any keys on your keyboard!
 Depending on your system, the installation may take around 25 minutes or more.
 
 Also, please remember: if any single process fails, you should reinstall your system with Ubuntu 22.04 and try again!
+
 This installer may not support any of your preinstalled third-party software.
 ***********************************************************************
 "
