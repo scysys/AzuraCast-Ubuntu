@@ -20,12 +20,26 @@ Personally, I plan to use AzuraCast in a modified way (I only need the AutoDJ fe
 Just one line for you.
 
 ```
-mkdir /root/azuracast_installer && cd /root/azuracast_installer && git clone https://github.com/scysys/AzuraCast-Ubuntu.git . && chmod +x install.sh && ./install.sh -i
+mkdir /root/azuracast_installer && cd /root/azuracast_installer && git clone https://github.com/scysys/AzuraCast-Ubuntu.git . && git checkout 0.18.5 && chmod +x install.sh && ./install.sh -i
 ```
 
 After installation, make sure that everything is working. If you encounter any issues related to the installer, please report them directly here and do not disturb the AzuraCast developers with errors that are related to this repository.
 
 ![#f03c15](https://placehold.co/15x15/f03c15/f03c15.png) *You must reboot after your first install!*
+
+## How to update from a previous installation using this installer
+
+The old installer does not have a routine to upgrade. You must first update the installer itself.
+
+```
+cd /root/azuracast_installer && git stash && git checkout 0.18.5 && chmod +x install.sh && ./install.sh --upgrade
+```
+
+Alternatively, if you don't need the old installer files or you have already deleted the installer from your system, follow these steps:
+
+```
+mkdir -p /root/azuracast_installer && cd /root/azuracast_installer && git clone https://github.com/scysys/AzuraCast-Ubuntu.git . && git checkout 0.18.5 && chmod +x install.sh && ./install.sh --upgrade
+```
 
 ## Available Commands
 
