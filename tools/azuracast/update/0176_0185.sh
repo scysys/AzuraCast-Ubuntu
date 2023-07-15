@@ -136,6 +136,9 @@ export NODE_ENV=production
 npm ci
 npm run build
 
+# Back to InstallerHome
+cd $installerHome
+
 # Read new config files
 supervisorctl reread
 supervisorctl update
@@ -143,7 +146,7 @@ supervisorctl restart redis
 
 # Migrate Database
 chmod +x /var/azuracast/www/bin/console
-/var/azuracast/www/bin/console azuracast:migrate
+/var/azuracast/www/bin/console azuracast:setup:migrate
 
 # Remove
 rm -f /var/azuracast/installer_version.txt
