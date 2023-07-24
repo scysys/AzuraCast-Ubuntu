@@ -4,10 +4,10 @@
 add-apt-repository -y ppa:sftpgo/sftpgo
 
 # Update package lists
-apt-get update
+apt_get_with_lock update
 
 # Install SFTPGo
-apt-get install -y --no-install-recommends sftpgo
+apt_get_with_lock install -y --no-install-recommends sftpgo
 
 # Copy the SFTPGo configuration file to the appropriate directory
 cp sftpgo/config/sftpgo.json /var/azuracast/sftpgo/sftpgo.json

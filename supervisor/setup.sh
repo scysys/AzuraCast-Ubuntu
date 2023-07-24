@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Install Supervisor
-apt-get install -y --no-install-recommends supervisor
+apt_get_with_lock install -y --no-install-recommends supervisor
 
 CONFIG_DIR="/etc/supervisor/conf.d"
 SUPERVISOR_CONFIG="/etc/supervisor/supervisord.conf"

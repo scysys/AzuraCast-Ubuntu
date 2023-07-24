@@ -13,10 +13,10 @@ PHP_RUN_DIR=/run/php
 add-apt-repository -y ppa:ondrej/php
 
 # Update package lists
-apt-get update
+apt_get_with_lock update
 
 # Install PHP packages and required dependencies
-apt-get install -y curl php${PHP_VERSION}-fpm php${PHP_VERSION}-cli php${PHP_VERSION}-gd \
+apt_get_with_lock install -y curl php${PHP_VERSION}-fpm php${PHP_VERSION}-cli php${PHP_VERSION}-gd \
   php${PHP_VERSION}-curl php${PHP_VERSION}-xml php${PHP_VERSION}-zip \
   php${PHP_VERSION}-bcmath php${PHP_VERSION}-gmp php${PHP_VERSION}-mysqlnd \
   php${PHP_VERSION}-mbstring php${PHP_VERSION}-intl php${PHP_VERSION}-redis \

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Install the Golang package without recommended packages
-apt-get install -y --no-install-recommends golang
+apt_get_with_lock install -y --no-install-recommends golang
 
 # Install a specific version of Centrifugo using Go
 go install github.com/centrifugal/centrifugo/v4@d465b5932ab786273f081392e1dc8fdfd2d2ec10

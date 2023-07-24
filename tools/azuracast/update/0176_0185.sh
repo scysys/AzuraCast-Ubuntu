@@ -25,6 +25,28 @@ else
     exit 1
 fi
 
+# Function to check for dpkg lock and wait until it's released or timeout occurs
+wait_for_dpkg_lock() {
+    local timeout=120
+    local start_time=$(date +%s)
+    while fuser /var/lib/dpkg/lock-frontend >/dev/null 2>&1; do
+        local current_time=$(date +%s)
+        local elapsed_time=$((current_time - start_time))
+        if ((elapsed_time >= timeout)); then
+            echo "Timeout: Unable to acquire dpkg lock after $timeout seconds. Exiting..."
+            exit 1
+        fi
+        echo 'Lock file is in use. Waiting 3 seconds...'
+        sleep 3
+    done
+}
+
+# Wrapper function for apt_get handles the lock check
+apt_get_with_lock() {
+    wait_for_dpkg_lock
+    apt_get_with_lock "$@"
+}
+
 ### AzuraCast related
 # Check if the user started the right upgrade script
 azv=/var/azuracast/www/src/Version.php
@@ -46,8 +68,8 @@ echo -e "Backup of $FALLBACK_VERSION is located in $installerHome/tools/azuracas
 ### Update System
 # First, we have to check if anything is up to date
 export DEBIAN_FRONTEND=noninteractive
-apt-get update
-apt-get -y upgrade
+apt_get_with_lock update
+apt_get_with_lock upgrade -y
 
 ### Stop Services
 # Stop Zabbix (Only internal, but it will not disturb users who used this installer.)
@@ -64,7 +86,7 @@ PHP_MODS_DIR=$PHP_DIR/mods-available
 PHP_RUN_DIR=/run/php
 
 # Install PHP packages and required dependencies
-apt-get install -y curl php${PHP_VERSION}-fpm php${PHP_VERSION}-cli php${PHP_VERSION}-gd \
+apt_get_with_lock install -y curl php${PHP_VERSION}-fpm php${PHP_VERSION}-cli php${PHP_VERSION}-gd \
     php${PHP_VERSION}-curl php${PHP_VERSION}-xml php${PHP_VERSION}-zip \
     php${PHP_VERSION}-bcmath php${PHP_VERSION}-gmp php${PHP_VERSION}-mysqlnd \
     php${PHP_VERSION}-mbstring php${PHP_VERSION}-intl php${PHP_VERSION}-redis \
@@ -96,7 +118,7 @@ update-alternatives --set php /usr/bin/php${PHP_VERSION}
 
 ### Redis is new in this version
 # Install Redis
-apt-get install -y --no-install-recommends redis-server
+apt_get_with_lock install -y --no-install-recommends redis-server
 
 # Get redis.conf
 curl -s -o /etc/redis/redis.conf https://raw.githubusercontent.com/scysys/AzuraCast-Ubuntu/$newVersion/redis/redis.conf

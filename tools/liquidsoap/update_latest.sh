@@ -17,10 +17,10 @@ curl -LO "$release_url"
 dpkg -i liquidsoap_$tag_name-ubuntu-jammy-1_$ARCHITECTURE.deb
 
 # Update package list
-apt-get update
+apt_get_with_lock update
 
 # Upgrade Liquidsoap and its dependencies
-apt-get upgrade -y liquidsoap
+apt_get_with_lock upgrade -y liquidsoap
 
 # Clean up
 rm liquidsoap_$tag_name-ubuntu-jammy-1_$ARCHITECTURE.deb

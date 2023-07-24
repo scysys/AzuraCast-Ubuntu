@@ -8,8 +8,8 @@ AZURACAST_CONF_FILE=azuracast.conf
 AZURACAST_CONF_DIR=$NGINX_DIR/$AZURACAST_CONF_FILE.d
 
 # Update the package lists and install the necessary dependencies
-apt-get update
-apt-get install -y curl nginx openssl
+apt_get_with_lock update
+apt_get_with_lock install -y curl nginx openssl
 
 # Backup the original files and copy the default nginx configuration files and enable the AzuraCast nginx configuration
 mv -f $NGINX_DIR/$NGINX_CONF_FILE $NGINX_DIR/$NGINX_CONF_FILE.bak

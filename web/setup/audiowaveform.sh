@@ -4,7 +4,7 @@
 add-apt-repository -y ppa:chris-needham/ppa
 
 # Update package list
-apt-get update
+apt_get_with_lock update
 
 # Install audiowaveform without recommended packages and with unlimited timeout
-apt-get install --no-install-recommends -y audiowaveform
+apt_get_with_lock install --no-install-recommends -y audiowaveform

@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 # Install required packages for building Icecast
-apt-get update
-apt-get install -y --no-install-recommends \
+apt_get_with_lock update
+apt_get_with_lock install -y --no-install-recommends \
   build-essential libxml2 libxslt1-dev libvorbis-dev libssl-dev libcurl4-openssl-dev openssl
 
 # Download and extract the Icecast source code

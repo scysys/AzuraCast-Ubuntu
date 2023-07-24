@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
 # Update the package lists and install the necessary dependencies
-apt-get update
-apt-get install -y --no-install-recommends vorbis-tools
+apt_get_with_lock update
+apt_get_with_lock install -y --no-install-recommends vorbis-tools

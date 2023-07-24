@@ -4,7 +4,7 @@
 # setup_azuracast_user
 ##############################################################################
 
-apt-get install -y --no-install-recommends sudo
+apt_get_with_lock install -y --no-install-recommends sudo
 
 adduser --home /var/azuracast --disabled-password --gecos "" azuracast
 usermod -aG www-data azuracast

@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
 # Install the zstd package without recommended packages
-apt-get install -y --no-install-recommends zstd
+apt_get_with_lock install -y --no-install-recommends zstd

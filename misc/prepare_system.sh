@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 # Update package lists and upgrade packages
-apt-get update
-apt-get upgrade -y
+apt_get_with_lock update
+apt_get_with_lock upgrade -y
 
 # Add multiverse, universe, and restricted repositories
 add-apt-repository -y multiverse
@@ -10,7 +10,7 @@ add-apt-repository -y universe
 add-apt-repository -y restricted
 
 # Update package lists
-apt-get update
+apt_get_with_lock update
 
 # Issue: https://github.com/scysys/AzuraCast-Ubuntu/issues/1#issuecomment-1440983104
 # Fix RackNerds Image
@@ -22,7 +22,7 @@ else
 fi
 
 # Install system packages and dependencies
-apt-get install -y build-essential pwgen whois zstd software-properties-common \
+apt_get_with_lock install -y build-essential pwgen whois zstd software-properties-common \
     apt-transport-https ca-certificates language-pack-en tini gosu curl wget \
     tar zip unzip git rsync tzdata gpg-agent openssh-client openssl
 
