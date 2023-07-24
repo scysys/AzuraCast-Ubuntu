@@ -138,7 +138,7 @@ trap exit_handler EXIT
 wait_for_dpkg_lock() {
     local timeout=120
     local start_time=$(date +%s)
-    while fuser /var/lib/dpkg/lock-frontend >/dev/null 2>&1; do
+    while pgrep -f 'dpkg\.lock-frontend' >/dev/null; do
         local current_time=$(date +%s)
         local elapsed_time=$((current_time - start_time))
         if ((elapsed_time >= timeout)); then
@@ -150,10 +150,10 @@ wait_for_dpkg_lock() {
     done
 }
 
-# Wrapper function for apt_get handles the lock check
+# Wrapper function for apt-get that handles the lock check
 apt_get_with_lock() {
     wait_for_dpkg_lock
-    apt_get_with_lock "$@"
+    apt-get "$@"
 }
 
 ##############################################################################
