@@ -138,7 +138,7 @@ trap exit_handler EXIT
 wait_for_dpkg_lock() {
     local timeout=120
     local start_time=$(date +%s)
-    while pgrep -f 'dpkg\.lock-frontend' >/dev/null; do
+    while pgrep -f 'dpkg\.lock-frontend|apt' >/dev/null; do
         local current_time=$(date +%s)
         local elapsed_time=$((current_time - start_time))
         if ((elapsed_time >= timeout)); then
