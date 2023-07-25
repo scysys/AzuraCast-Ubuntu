@@ -74,7 +74,7 @@ echo -en "\n- 10/11 Set AzuraCast Permissions\n"
 chown -R azuracast.azuracast /var/azuracast &>>"${LOG_FILE}"
 
 # Update and Upgrade System again
-echo -en "\n- 11/11 Set AzuraCast Permissions\n"
+echo -en "\n- 11/11 Finalize Installation\n"
 source misc/finalize.sh &>>"${LOG_FILE}"
 
 echo -en "
