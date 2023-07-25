@@ -60,6 +60,8 @@ chmod 0640 /var/azuracast/www/env.ini
 chown azuracast.azuracast /var/azuracast/www/env.ini
 
 # Migrate DB
+supervisorctl restart redis
+supervisorctl restart mariadb
 php /var/azuracast/www/bin/console azuracast:setup:migrate
 supervisorctl stop mariadb
 
