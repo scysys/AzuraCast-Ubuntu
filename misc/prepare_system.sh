@@ -6,6 +6,9 @@ if [ -e "$installerHome/azuracast_installer_runned" ]; then
   exit 1
 fi
 
+# Maybe its the easiest way instead of checking apt lock
+systemctl stop unattended-upgrades || :
+
 # Update package lists and upgrade packages
 apt_get_with_lock update
 apt_get_with_lock upgrade -y
