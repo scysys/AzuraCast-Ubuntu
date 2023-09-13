@@ -1,10 +1,7 @@
 #!/usr/bin/env bash
 
-# Update package lists
-apt_get_with_lock update
-
-# Install Redis server
-apt_get_with_lock install -y --no-install-recommends sftpgo redis-server
+# Update package lists & Install Redis server
+apt_get_with_lock update && apt_get_with_lock install -y --no-install-recommends redis-server
 
 # Disable and stop the Redis service
 systemctl disable redis-server || true

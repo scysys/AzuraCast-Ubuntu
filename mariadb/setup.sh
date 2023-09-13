@@ -7,7 +7,7 @@
 # It seems that Azuracat is actually need MariaDB 10.9? Actual default Ubuntu version is 10.6
 apt_get_with_lock install -y wget software-properties-common dirmngr ca-certificates apt-transport-https
 
-if [ $azuracast_git_version = "stable" ]; then
+if [ "$azuracast_git_version" = "stable" ] || [ "$azuracast_git_version" = "rolling" ]; then
     curl -LsS https://r.mariadb.com/downloads/mariadb_repo_setup | sudo bash -s -- --mariadb-server-version="mariadb-$set_mariadb_version"
 else
     apt_get_with_lock install software-properties-common gnupg2 -y
@@ -24,7 +24,7 @@ mysql -e "create user $set_azuracast_username@localhost identified by '$set_azur
 mysql -e "grant all privileges on $set_azuracast_database.* to $set_azuracast_username@localhost;"
 
 # Prepare MySQL-Root-Password
-if [ $azuracast_git_version = "stable" ]; then
+if [ "$azuracast_git_version" = "stable" ] || [ "$azuracast_git_version" = "rolling" ]; then
     sed -i "s/changeToMySQLRootPW/$mysql_root_pass/g" mariadb/config/mysql_secure_installation.sql
 
     # Secure MySQL in same way like: mysql_secure_installation

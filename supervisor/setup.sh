@@ -4,31 +4,26 @@
 apt_get_with_lock install -y --no-install-recommends supervisor
 
 CONFIG_DIR="/etc/supervisor/conf.d"
-SUPERVISOR_CONFIG="/etc/supervisor/supervisord.conf"
-SERVICE_CONFIG_FILES=("beanstalkd.conf" "centrifugo.conf" "cron.conf" "nginx.conf" "php-fpm.conf" "php-nowplaying.conf" "php-worker.conf" "sftpgo.conf" "mariadb.conf" "redis.conf")
-
 mkdir -p "$CONFIG_DIR"
 
-# supervisord
-cp supervisor/config/supervisord.conf "$SUPERVISOR_CONFIG"
+SUPERVISOR_MAIN_CONFIG="/etc/supervisor/supervisord.conf"
+SERVICE_CONFIGS=("beanstalkd.conf" "centrifugo.conf" "cron.conf" "nginx.conf" "php-fpm.conf" "php-nowplaying.conf" "php-worker.conf" "sftpgo.conf" "mariadb.conf" "redis.conf")
 
-# supervisor services
-for file in "${SERVICE_CONFIG_FILES[@]}"; do
-    cp "supervisor/conf.d/$file" "$CONFIG_DIR/$file"
+# Copy main supervisord configuration
+cp supervisor/config/supervisord.conf "$SUPERVISOR_MAIN_CONFIG"
+
+# Copy service configurations
+for config in "${SERVICE_CONFIGS[@]}"; do
+    cp "supervisor/conf.d/$config" "$CONFIG_DIR/$config"
 done
 
-# Enable Service
+# Enable and configure Supervisor
 systemctl enable supervisor
-
-# Reload systemd configuration
 systemctl daemon-reload
-
-# Read new config files
-supervisorctl reread
-supervisorctl update
+supervisorctl reread && supervisorctl update
 
 # Correct MySQL Permissions
-chown -R mysql.mysql /var/lib/mysql
+chown -R mysql:mysql /var/lib/mysql
 
 # Restart Supervisor services
 systemctl restart supervisor || :

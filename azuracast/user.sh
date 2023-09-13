@@ -4,52 +4,21 @@
 # setup_azuracast_user
 ##############################################################################
 
+# Install required packages
 apt_get_with_lock install -y --no-install-recommends sudo
 
+# Add user
 adduser --home /var/azuracast --disabled-password --gecos "" azuracast
 usermod -aG www-data azuracast
 
-# AzuraCast working dir
-mkdir -p /var/azuracast/www
+# Define base directory
+BASE_DIR="/var/azuracast"
 
-# AzuraCast Stations
-mkdir -p /var/azuracast/stations
+# Create directories
+mkdir -p $BASE_DIR/{www,stations,servers/{shoutcast2,stereo_tool},backups,www_tmp,uploads,geoip,dbip,centrifugo,sftpgo/{persist,backups},acme,logs}
 
-# AzuraCast Stream Servers
-mkdir -p /var/azuracast/servers
-mkdir -p /var/azuracast/servers/shoutcast2
-mkdir -p /var/azuracast/servers/stereo_tool
+# Adjust permissions
+chmod -R 777 $BASE_DIR/www_tmp
 
-# AzuraCast Backups
-mkdir -p /var/azuracast/backups
-
-# AzuraCast TMP
-mkdir -p /var/azuracast/www_tmp
-chmod -R 777 /var/azuracast/www_tmp # ??? 777 in 2022 ???
-
-# AzuraCast Uploads
-mkdir -p /var/azuracast/uploads
-
-# AzuraCast GeoIP
-mkdir -p /var/azuracast/geoip
-
-# AzuraCast GeoIP
-mkdir -p /var/azuracast/dbip
-
-# Centrifugo
-mkdir -p /var/azuracast/centrifugo
-
-# SFTGO
-#mkdir -p /var/azuracast/sftpgo
-mkdir -p /var/azuracast/sftpgo/persist
-mkdir -p /var/azuracast/sftpgo/backups
-
-# Certbot
-mkdir -p /var/azuracast/acme
-
-# Supervisor Logs
-mkdir -p /var/azuracast/logs
-
-# Correct Permissions
-chown -R azuracast:azuracast /var/azuracast
-
+# Set ownership
+chown -R azuracast:azuracast $BASE_DIR

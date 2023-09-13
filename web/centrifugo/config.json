@@ -21,6 +21,17 @@
       "allow_subscribe_for_anonymous": true,
       "allow_history_for_client": true,
       "allow_history_for_anonymous": true
+    },
+    {
+      "name": "global",
+      "history_size": 0,
+      "allow_subscribe_for_client": true,
+      "allow_subscribe_for_anonymous": true,
+      "allow_history_for_client": true,
+      "allow_history_for_anonymous": true
     }
-  ]
+  ],
+  "engine": "redis",
+  "redis_address": "localhost:6379",
+  "redis_db": 0
 }

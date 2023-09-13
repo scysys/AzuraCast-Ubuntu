@@ -38,15 +38,17 @@ generate_azuracast_password=$(
 installerHome=$PWD
 
 # Misc Options
-set_php_version=8.2
+set_php_version="8.2"
 
-# AzuraCast Database cant be custom. Migrate function does actually not respect different database names.
+# AzuraCast Database cant be custom.
+# Migrate function does actually not respect different database names. (Last checked in 0.17.6)
 set_azuracast_database=azuracast
 set_azuracast_username=$generate_azuracast_username
 set_azuracast_password=$generate_azuracast_password
 
 # Show AzuraCast and Installer Version
-set_azuracast_version=0.18.5
+set_azuracast_version="0.19.1"
+set_azuracast_version_upgrade="0185_0191"
 
 # Commands
 LONGOPTS=help,version,upgrade,install,install_scyonly,upgrade_scyonly,icecastkh18,icecastkhlatest,icecastkhmaster,changeports,liquidsoaplatest,liquidsoapcustom
@@ -223,32 +225,39 @@ function tools_update_liquidsoap_custom() {
 function azuracast_help() {
     cat <<EOF
 ---
-Install and manage your AzuraCast installation.
+Manage your AzuraCast installation.
 
-Attention
-I have not tested using multiple commands at the same time.
-If you need to use another command from here stay safe and execute them one by one.
+Note:
+Multiple commands have not been tested simultaneously. 
+For safety, execute the commands individually.
 
-Installation / Upgrade
-  -i, --install                  Install the latest stable version of AzuraCast
-  -u, --upgrade                  Upgrade to the latest stable version of AzuraCast
-  -v, --version                  Display version information
-  -h, --help                     Display this help text
-  
-Azuracast
+Installation / Upgrade (Stable)
+  -i, --install                  Install the latest stable version of AzuraCast ($set_azuracast_version)
+  -u, --upgrade                  Upgrade to the latest stable version of AzuraCast ($set_azuracast_version)
 
-  -o, --changeports              Change the Ports on which AzuraCast Panel itself is running
+Installation / Upgrade (Rolling Release)
+  -r, --install_rrc              Install the latest Rolling Release of AzuraCast (not recommended for production use)
+  -s, --upgrade_rrc              Upgrade to the latest Rolling Release of AzuraCast
+
+AzuraCast
+  -c, --clean                    Clean AzuraCast's www_tmp Directory
+  -o, --changeports              Change the ports on which the AzuraCast Panel runs
 
 Icecast KH
+  -w, --icecastkh18              Install/Update to Icecast KH 18
+  -t, --icecastkhlatest          Install/Update to the latest Icecast KH build on GitHub
+  -s, --icecastkhmaster          Install/Update to the latest Icecast KH based on the master branch
 
-  -w, --icecastkh18              Install / Update to Icecast KH 18
-  -t, --icecastkhlatest          Install / Update to latest Icecast KH build on GitHub
-  -s, --icecastkhmaster          Install / Update to latest Icecast KH based on the actual master branch
+Liquidsoap:
+For AzuraCast Stable versions after 0.18.5, use Liquidsoap version 2.2.x and above.
+For versions before 0.18.5, use Liquidsoap versions below 2.2.x. Version 2.1.4 is the latest compatible version.
 
-Liquidsoap
+  -n, --liquidsoaplatest         Install/Update to the latest released Liquidsoap version
+  -m, --liquidsoapcustom         Install/Update to a Liquidsoap version specified by the user
 
-  -n, --liquidsoaplatest         Install / Update to the latest released Liquidsoap Version
-  -m, --liquidsoapcustom         Install / Update to a Liquidsoap Version that the user will enter
+Misc
+  -v, --version                  Display version information
+  -h, --help                     Display this help message
 
 Exit status:
 Returns 0 if successful; non-zero otherwise.
@@ -298,9 +307,9 @@ function azuracast_upgrade() {
     # Move any stashed changes to a temporary branch
     git stash branch temp_branch
 
-    git checkout 0.18.5 && chmod +x install.sh
+    git checkout ${set_azuracast_version} && chmod +x install.sh
 
-    source tools/azuracast/update/0176_0185.sh
+    source tools/azuracast/update/${set_azuracast_version_upgrade}.sh
 
     # Remove the temporary branch if it exists
     git branch -D temp_branch
