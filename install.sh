@@ -51,8 +51,8 @@ set_azuracast_version="0.19.1"
 set_azuracast_version_upgrade="0185_0191"
 
 # Commands
-LONGOPTS=help,version,upgrade,install,install_scyonly,upgrade_scyonly,icecastkh18,icecastkhlatest,icecastkhmaster,changeports,liquidsoaplatest,liquidsoapcustom
-OPTIONS=hvuixywtsonm
+LONGOPTS=help,version,upgrade,install,install_scyonly,upgrade_scyonly,icecastkh18,icecastkhlatest,icecastkhmaster,changeports,liquidsoaplatest,liquidsoapcustom,clean
+OPTIONS=hvuixywtsonmc
 
 if [ "$#" -eq 0 ]; then
     echo "No options specified. Use --help to learn more."
@@ -66,7 +66,7 @@ fi
 
 eval set -- "$PARSED"
 
-h=n v=n u=n i=n x=n y=n w=n t=n s=n o=n n=n m=n
+h=n v=n u=n i=n x=n y=n w=n t=n s=n o=n n=n m=n c=n
 
 while true; do
     case "$1" in
@@ -118,6 +118,10 @@ while true; do
         m=y
         break
         ;;
+    -c | --clean)
+        c=y
+        break
+        ;;
     --)
         shift
         break
@@ -136,27 +140,8 @@ fi
 
 trap exit_handler EXIT
 
-# Function to check for dpkg lock and wait until it's released or timeout occurs
-wait_for_dpkg_lock() {
-    local timeout=120
-    local start_time=$(date +%s)
-    while pgrep -f 'dpkg\.lock-frontend|apt' >/dev/null; do
-        local current_time=$(date +%s)
-        local elapsed_time=$((current_time - start_time))
-        if ((elapsed_time >= timeout)); then
-            echo "Timeout: Unable to acquire dpkg lock after $timeout seconds. Exiting..."
-            exit 1
-        fi
-        echo 'Lock file is in use. Waiting 3 seconds...'
-        sleep 3
-    done
-}
-
-# Wrapper function for apt-get that handles the lock check
-apt_get_with_lock() {
-    wait_for_dpkg_lock
-    apt-get "$@"
-}
+# apt_get_with_lock
+source tools/apt_get_with_lock.sh || { echo "Error sourcing apt_get_with_lock.sh"; exit 1; }
 
 ##############################################################################
 # Invoked upon EXIT signal from bash
@@ -201,8 +186,15 @@ function tools_update_icecastkh_master() {
 ##############################################################################
 # Tools: Change AzuraCast Ports
 ##############################################################################
-function toosl_change_azuracast_ports() {
+function tools_change_azuracast_ports() {
     source tools/azuracast/change_ports.sh
+}
+
+##############################################################################
+# Tools: Clean AzuraCast's www_tmp Directory
+##############################################################################
+function tools_clean_azuracast_port() {
+    source tools/azuracast/clean.sh
 }
 
 ##############################################################################
@@ -237,7 +229,7 @@ Installation / Upgrade (Stable)
 
 Installation / Upgrade (Rolling Release)
   -r, --install_rrc              Install the latest Rolling Release of AzuraCast (not recommended for production use)
-  -s, --upgrade_rrc              Upgrade to the latest Rolling Release of AzuraCast
+  -v, --upgrade_rrc              Upgrade to the latest Rolling Release of AzuraCast
 
 AzuraCast
   -c, --clean                    Clean AzuraCast's www_tmp Directory
@@ -307,9 +299,33 @@ function azuracast_upgrade() {
     # Move any stashed changes to a temporary branch
     git stash branch temp_branch
 
+    # Installer Branch
     git checkout ${set_azuracast_version} && chmod +x install.sh
 
+    # Update AzuraCast
     source tools/azuracast/update/${set_azuracast_version_upgrade}.sh
+
+    # Remove the temporary branch if it exists
+    git branch -D temp_branch
+
+    echo -e "Do Reboot NOW!"
+}
+
+##############################################################################
+# Upgrade an existing installation to latest Rolling Release of AzuraCast (-v/--upgrade_rrc)
+##############################################################################
+function azuracast_upgrade_rolling() {
+    ### Update Installer
+    git stash && git pull
+
+    # Move any stashed changes to a temporary branch
+    git stash branch temp_branch
+
+    # Installer Branch
+    git checkout main && chmod +x install.sh
+
+    # Update AzuraCast
+    source tools/azuracast/update/rolling_release.sh
 
     # Remove the temporary branch if it exists
     git branch -D temp_branch
@@ -384,7 +400,7 @@ function main() {
     fi
 
     if [ "$o" == "y" ]; then
-        toosl_change_azuracast_ports
+        tools_change_azuracast_ports
     fi
 
     if [ "$n" == "y" ]; then
@@ -393,6 +409,10 @@ function main() {
 
     if [ "$m" == "y" ]; then
         tools_update_liquidsoap_custom
+    fi
+
+    if [ "$c" == "y" ]; then
+        tools_clean_azuracast_port
     fi
 
 }

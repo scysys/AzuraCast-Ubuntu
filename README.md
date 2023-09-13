@@ -3,7 +3,7 @@
 **Some things to know:**
 
 - This installer only supports Ubuntu 22.04.
-- It installs AzuraCast in its stable version without Docker (currently version 0.18.5).
+- It installs AzuraCast in its stable version without Docker (currently version 0.19.1).
 
 If you need help with this great product, check out AzuraCast here: <https://github.com/AzuraCast/AzuraCast>.
 
@@ -20,7 +20,7 @@ Personally, I plan to use AzuraCast in a modified way (I only need the AutoDJ fe
 Just one line for you.
 
 ```
-mkdir /root/azuracast_installer && cd /root/azuracast_installer && git clone https://github.com/scysys/AzuraCast-Ubuntu.git . && git checkout 0.18.5 && chmod +x install.sh && ./install.sh -i
+mkdir /root/azuracast_installer && cd /root/azuracast_installer && git clone https://github.com/scysys/AzuraCast-Ubuntu.git . && git checkout 0.19.1 && chmod +x install.sh && ./install.sh -i
 ```
 
 After installation, make sure that everything is working. If you encounter any issues related to the installer, please report them directly here and do not disturb the AzuraCast developers with errors that are related to this repository.
@@ -32,28 +32,32 @@ After installation, make sure that everything is working. If you encounter any i
 The old installer does not have a routine to upgrade. You must first update the installer itself.
 
 ```
-cd /root/azuracast_installer && git stash && git checkout 0.18.5 && chmod +x install.sh && ./install.sh --upgrade
+cd /root/azuracast_installer && git stash && git checkout 0.19.1 && chmod +x install.sh && ./install.sh --upgrade
 ```
 
 Alternatively, if you don't need the old installer files or you have already deleted the installer from your system, follow these steps:
 
 ```
-mkdir -p /root/azuracast_installer && cd /root/azuracast_installer && git clone https://github.com/scysys/AzuraCast-Ubuntu.git . && git checkout 0.18.5 && chmod +x install.sh && ./install.sh --upgrade
+mkdir -p /root/azuracast_installer && cd /root/azuracast_installer && git clone https://github.com/scysys/AzuraCast-Ubuntu.git . && git checkout 0.19.1 && chmod +x install.sh && ./install.sh --upgrade
 ```
 
 ## Available Commands
 
 Usage: install.sh --help or install.sh -h
 
-*Installation / Upgrade*
+*Installation / Upgrade (Stable)*
 
 - `-i`, `--install`:                  Install the latest stable version of AzuraCast
 - `-u`, `--upgrade`:                  Upgrade to the latest stable version of AzuraCast
-- `-v`, `--version`:                  Display version information
-- `-h`, `--help`:                     Display this help text
+
+*Installation / Upgrade (Rolling Release)*
+
+- `-r`, `--install_rrc`:              Install the latest Rolling Release of AzuraCast (not recommended for production use)
+- `-v`, `--upgrade_rrc`:              Upgrade to the latest Rolling Release of AzuraCast
   
 *AzuraCast*
 
+- `-c`, `--clean`:                    Clean AzuraCast's www_tmp Directory
 - `-o`, `--changeports`:              Change the Ports on which AzuraCast Panel itself is running
 
 *Icecast KH*
@@ -63,9 +67,16 @@ Usage: install.sh --help or install.sh -h
 - `-s`, `--icecastkhmaster`:          Install / Update to latest Icecast KH based on the actual master branch
 
 *Liquidsoap*
+For AzuraCast Stable versions after 0.18.5, use Liquidsoap version 2.2.x and above.
+For versions before 0.18.5, use Liquidsoap versions below 2.2.x. Version 2.1.4 is the latest compatible version.
 
-- `-n`, `--liquidsoaplatest`:          Install / Update to the latest released Liquidsoap Version
-- `-m`, `--liquidsoapcustom`:          Install / Update to a Liquidsoap Version of your choice
+- `-n`, `--liquidsoaplatest`:         Install / Update to the latest released Liquidsoap Version
+- `-m`, `--liquidsoapcustom`:         Install / Update to a Liquidsoap Version of your choice
+
+*Misc*
+
+- `-v`, `--version`:                  Display version information
+- `-h`, `--help`:                     Display this help text
 
 ## Tested with
 
