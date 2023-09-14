@@ -37,6 +37,16 @@ if [ -f "$azv" ]; then
     fi
 fi
 
+# Copy some files from old version to new version
+echo -e "Copy new Centrifugo config\n"
+cp web/centrifugo/config.json /var/azuracast/centrifugo/config.json
+
+echo -e "Copy new AzuraCast config\n"
+cp web/nginx/azuracast.conf /etc/nginx/sites-available/azuracast.conf
+
+echo -e "Copy new Nginx config\n"
+cp web/nginx/nginx.conf /etc/nginx/nginx.conf
+
 # Backup the current AzuraCast version
 CURRENT_DATE=$(date +%Y%m%d)  # Fetching current date
 BACKUP_FILENAME="${FALLBACK_VERSION}_${CURRENT_DATE}.zip"
@@ -58,7 +68,7 @@ rm -rf /var/azuracast/www_tmp/*
 chown -R azuracast.azuracast /var/azuracast
 
 # Update AzuraCast
-CHECKOUT_VERSION="0.18.5-$( [[ $yn_one == "yes" ]] && echo "org" || echo "scy" )"
+CHECKOUT_VERSION="$newVersion-$( [[ $yn_one == "yes" ]] && echo "org" || echo "scy" )"
 su azuracast <<EOF
 cd /var/azuracast/www
 git stash
@@ -66,7 +76,7 @@ git pull
 git checkout $CHECKOUT_VERSION
 cd /var/azuracast/www/frontend
 export NODE_ENV=production
-npm ci
+npm ci --include=dev
 npm run build
 EOF
 
@@ -74,7 +84,7 @@ EOF
 cd $installerHome
 supervisorctl reread
 supervisorctl update
-supervisorctl restart redis
+supervisorctl restart all || :
 
 # Migrate database
 chmod +x /var/azuracast/www/bin/console
