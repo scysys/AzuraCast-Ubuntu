@@ -51,8 +51,8 @@ set_azuracast_version="0.19.1"
 set_azuracast_version_upgrade="0185_0191"
 
 # Commands
-LONGOPTS=help,version,upgrade,install,install_scyonly,upgrade_scyonly,icecastkh18,icecastkhlatest,icecastkhmaster,changeports,liquidsoaplatest,liquidsoapcustom,clean
-OPTIONS=hvuixywtsonmc
+LONGOPTS=help,version,upgrade,install,install_scyonly,upgrade_scyonly,icecastkh18,icecastkhlatest,icecastkhmaster,changeports,liquidsoaplatest,liquidsoapcustom,clean,upgrade_installer,install_rrc,upgrade_rrc
+OPTIONS=hvuixywtsonmczrv
 
 if [ "$#" -eq 0 ]; then
     echo "No options specified. Use --help to learn more."
@@ -66,7 +66,7 @@ fi
 
 eval set -- "$PARSED"
 
-h=n v=n u=n i=n x=n y=n w=n t=n s=n o=n n=n m=n c=n
+h=n v=n u=n i=n x=n y=n w=n t=n s=n o=n n=n m=n c=n z=n r=n v=n
 
 while true; do
     case "$1" in
@@ -120,6 +120,18 @@ while true; do
         ;;
     -c | --clean)
         c=y
+        break
+        ;;
+    -z | --upgrade_installer)
+        z=y
+        break
+        ;;
+    -r | --install_rrc)
+        r=y
+        break
+        ;;
+    -v | --upgrade_rrc)
+        v=y
         break
         ;;
     --)
@@ -193,7 +205,7 @@ function tools_change_azuracast_ports() {
 ##############################################################################
 # Tools: Clean AzuraCast's www_tmp Directory
 ##############################################################################
-function tools_clean_azuracast_port() {
+function tools_clean_azuracast() {
     source tools/azuracast/clean.sh
 }
 
@@ -209,6 +221,119 @@ function tools_update_liquidsoap() {
 ##############################################################################
 function tools_update_liquidsoap_custom() {
     source tools/liquidsoap/update_custom.sh
+}
+
+##############################################################################
+# Print version (-v/--version)
+##############################################################################
+function azuracast_version() {
+
+    echo "---
+Available AzuraCast Version: $set_azuracast_version"
+
+    azv=/var/azuracast/www/src/Version.php
+    if [ -f "$azv" ]; then
+        FALLBACK_VERSION="$(grep -oE "\FALLBACK_VERSION = .*;" $azv | sed "s/FALLBACK_VERSION = '//g;s/';//g")"
+        echo -en "Installed AzuraCast Version: $FALLBACK_VERSION \n\n"
+    else
+        echo -en "\nAzuraCast is actually not installed.\n---\n"
+    fi
+}
+
+##############################################################################
+# Install the latest stable version of AzuraCast (-i/--install)
+##############################################################################
+function azuracast_install() {
+    azuracast_git_version="stable"
+
+    export DEBIAN_FRONTEND=noninteractive
+
+    # Options
+    set_mariadb_version=10.9
+
+    # Include source
+    source install_default.sh
+}
+
+##############################################################################
+# Install the latest Rolling Release of AzuraCast (-r/--install_rrc)
+##############################################################################
+function azuracast_install_rrc() {
+    azuracast_git_version="rolling"
+
+    export DEBIAN_FRONTEND=noninteractive
+
+    # Options
+    set_mariadb_version=10.9
+
+    # Include source
+    source install_default.sh
+}
+
+##############################################################################
+# Do not Use! (-x/--install_scyonly)
+##############################################################################
+function azuracast_install_scyonly() {
+    azuracast_git_version="blub"
+
+    export DEBIAN_FRONTEND=noninteractive
+
+    # Options
+    set_mariadb_version=10.8
+
+    # Include source
+    source install_scyonly.sh
+}
+
+##############################################################################
+# Upgrade an existing installation to latest stable version of AzuraCast (-u/--upgrade)
+##############################################################################
+function azuracast_upgrade() {
+    # Installer Branch
+    git checkout ${set_azuracast_version} && chmod +x install.sh
+
+    # Update AzuraCast
+    source tools/azuracast/update/${set_azuracast_version_upgrade}.sh
+
+    # Inform to reboot
+    echo -e "Do Reboot NOW!"
+}
+
+##############################################################################
+# Upgrade an existing installation to latest Rolling Release of AzuraCast (-v/--upgrade_rrc)
+##############################################################################
+function azuracast_upgrade_rrc() {
+    # Installer Branch
+    git checkout rolling && chmod +x install.sh
+
+    # Update AzuraCast
+    source tools/azuracast/update/rolling_release.sh
+
+    # Inform to reboot
+    echo -e "Do Reboot NOW!"
+}
+
+##############################################################################
+# Do not Use! (-x/--upgrade_scyonly)
+##############################################################################
+function azuracast_upgrade_scyonly() {
+    echo "TODO: AzuraCast Upgrade"
+    exit 0
+    #source upgrade_scyonly.sh
+}
+
+##############################################################################
+# Upgrade the Installer itself (-z/--upgrade_installer)
+##############################################################################
+function installer_upgrade() {
+    # Update Installer
+    git stash && git pull
+
+    # Installer Branch
+    git checkout ${set_azuracast_version} && chmod +x install.sh
+
+    # Installer was upgraded
+    echo -e "Installer was upgraded to latest version ${set_azuracast_version}.\nTo use Rolling Release just do git checkout rolling."
 }
 
 ##############################################################################
@@ -248,6 +373,8 @@ For versions before 0.18.5, use Liquidsoap versions below 2.2.x. Version 2.1.4 i
   -m, --liquidsoapcustom         Install/Update to a Liquidsoap version specified by the user
 
 Misc
+  -z, --upgrade_installer        Upgrade Installer to latest version
+
   -v, --version                  Display version information
   -h, --help                     Display this help message
 
@@ -255,106 +382,6 @@ Exit status:
 Returns 0 if successful; non-zero otherwise.
 ---
 EOF
-}
-
-##############################################################################
-# Print version (-v/--version)
-##############################################################################
-function azuracast_version() {
-
-    echo "---
-Available AzuraCast Version: $set_azuracast_version"
-
-    azv=/var/azuracast/www/src/Version.php
-    if [ -f "$azv" ]; then
-        FALLBACK_VERSION="$(grep -oE "\FALLBACK_VERSION = .*;" $azv | sed "s/FALLBACK_VERSION = '//g;s/';//g")"
-        echo -en "Installed AzuraCast Version: $FALLBACK_VERSION \n\n"
-    else
-        echo -en "\nAzuraCast is actually not installed.\n---\n"
-    fi
-}
-
-##############################################################################
-# Install the latest stable version of AzuraCast (-i/--install)
-##############################################################################
-function azuracast_install() {
-    azuracast_git_version="stable"
-
-    export DEBIAN_FRONTEND=noninteractive
-
-    # Options
-    set_mariadb_version=10.9
-
-    # Include source
-    source install_default.sh
-}
-
-##############################################################################
-# Upgrade an existing installation to latest stable version of AzuraCast (-u/--upgrade)
-##############################################################################
-function azuracast_upgrade() {
-    ### Update Installer
-    git stash && git pull
-
-    # Move any stashed changes to a temporary branch
-    git stash branch temp_branch
-
-    # Installer Branch
-    git checkout ${set_azuracast_version} && chmod +x install.sh
-
-    # Update AzuraCast
-    source tools/azuracast/update/${set_azuracast_version_upgrade}.sh
-
-    # Remove the temporary branch if it exists
-    git branch -D temp_branch
-
-    echo -e "Do Reboot NOW!"
-}
-
-##############################################################################
-# Upgrade an existing installation to latest Rolling Release of AzuraCast (-v/--upgrade_rrc)
-##############################################################################
-function azuracast_upgrade_rolling() {
-    ### Update Installer
-    git stash && git pull
-
-    # Move any stashed changes to a temporary branch
-    git stash branch temp_branch
-
-    # Installer Branch
-    git checkout main && chmod +x install.sh
-
-    # Update AzuraCast
-    source tools/azuracast/update/rolling_release.sh
-
-    # Remove the temporary branch if it exists
-    git branch -D temp_branch
-
-    echo -e "Do Reboot NOW!"
-}
-
-##############################################################################
-# Do not Use! (-x/--install_scyonly)
-##############################################################################
-function azuracast_install_scyonly() {
-    azuracast_git_version="blub"
-
-    export DEBIAN_FRONTEND=noninteractive
-
-    # Options
-    set_mariadb_version=10.8
-
-    # Include source
-    source install_scyonly.sh
-}
-
-##############################################################################
-# Do not Use! (-x/--upgrade_scyonly)
-##############################################################################
-function azuracast_upgrade_scyonly() {
-    echo "TODO: AzuraCast Upgrade"
-    exit 0
-    #source upgrade_scyonly.sh
 }
 
 ##############################################################################
@@ -412,7 +439,19 @@ function main() {
     fi
 
     if [ "$c" == "y" ]; then
-        tools_clean_azuracast_port
+        tools_clean_azuracast
+    fi
+
+    if [ "$z" == "y" ]; then
+        installer_upgrade
+    fi
+
+    if [ "$r" == "y" ]; then
+        azuracast_install_rrc
+    fi
+
+    if [ "$v" == "y" ]; then
+        azuracast_upgrade_rrc
     fi
 
 }

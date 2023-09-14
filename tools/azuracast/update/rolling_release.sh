@@ -9,12 +9,23 @@
 
 # Prompt the user to confirm the update
 echo -e "\n\n---\n\n"
-read -rp "Do you have a backup of your installation? (yes or no): " yn_one
+
+echo "Before we proceed:"
+echo "1. Have you taken a backup of your installation?"
+read -rp "Enter 'yes' or 'no': " yn_one
 echo
-read -rp "Do you really want to upgrade to AzuraCast latest Rolling Release? (yes or no): " yn_two
+
+echo "2. Are you sure you want to upgrade to the latest AzuraCast Rolling Release?"
+read -rp "Enter 'yes' or 'no': " yn_two
+echo
+
+echo
+echo "3. Have you updated the installer using the following command?"
+echo "./install.sh --upgrade_installer"
+read -rp "Enter 'y' for yes or 'n' for no: " yn_three
 
 # Ensure user has given correct confirmation
-if [[ "$yn_one" != "yes" ]] || [[ "$yn_two" != "yes" ]]; then
+if [[ "$yn_one" != "yes" ]] || [[ "$yn_two" != "yes" ]] || [[ "$yn_three" != "yes" ]]; then
     echo "Error: Your answers were not correct."
     exit 1
 fi
