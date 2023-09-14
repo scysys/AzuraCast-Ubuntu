@@ -66,10 +66,13 @@ php /var/azuracast/www/bin/console azuracast:setup:migrate
 supervisorctl stop mariadb
 
 # Build
-source azuracast/build.sh
+echo -en "\n- Build AzuraCast\n"
+source azuracast/build.sh || { echo "Error sourcing build.sh"; exit 1; }
 
 # /etc/security/limits.conf
+echo -en "\n- Set ulimit\n"
 source azuracast/ulimit.sh || { echo "Error sourcing ulimit.sh"; exit 1; }
 
 # Logs
+echo -en "\n- Set AzuraCast Logs\n"
 source azuracast/logs.sh || { echo "Error sourcing logs.sh"; exit 1; }
