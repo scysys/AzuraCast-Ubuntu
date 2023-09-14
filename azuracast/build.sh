@@ -11,7 +11,7 @@ cd /var/azuracast/www/frontend
 export NODE_ENV=production
 
 # Pull Node Dependencies
-npm ci
+npm ci --include=dev
 
 # Build AzuraCast Frontend Scripts
 npm run build
