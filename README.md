@@ -67,6 +67,7 @@ Usage: install.sh --help or install.sh -h
 - `-s`, `--icecastkhmaster`:          Install / Update to latest Icecast KH based on the actual master branch
 
 *Liquidsoap*
+
 For AzuraCast Stable versions after 0.18.5, use Liquidsoap version 2.2.x and above.
 For versions before 0.18.5, use Liquidsoap versions below 2.2.x. Version 2.1.4 is the latest compatible version.
 
