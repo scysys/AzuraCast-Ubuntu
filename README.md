@@ -32,10 +32,10 @@ After installation, make sure that everything is working. If you encounter any i
 The old installer does not have a routine to upgrade. You must first update the installer itself.
 
 ```
-cd /root/azuracast_installer && git stash && git checkout 0.19.1 && chmod +x install.sh && ./install.sh --upgrade
+cd /root/azuracast_installer && git stash && git pull && git checkout 0.19.1 && chmod +x install.sh && ./install.sh --upgrade
 ```
 
-Alternatively, if you don't need the old installer files or you have already deleted the installer from your system, follow these steps:
+Alternatively, if you already deleted the installer from your system, follow these steps:
 
 ```
 mkdir -p /root/azuracast_installer && cd /root/azuracast_installer && git clone https://github.com/scysys/AzuraCast-Ubuntu.git . && git checkout 0.19.1 && chmod +x install.sh && ./install.sh --upgrade
