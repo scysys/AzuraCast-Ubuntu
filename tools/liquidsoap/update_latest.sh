@@ -8,7 +8,7 @@ tag_name=$(curl -s https://api.github.com/repos/savonet/liquidsoap-release-asset
 
 # Construct the release URL for Icecast
 ARCHITECTURE=$(dpkg --print-architecture | awk -F- '{ print $NF }')
-release_url="https://github.com/savonet/liquidsoap-release-assets/releases/download/v2.1.4/liquidsoap_$tag_name-ubuntu-jammy-1_$ARCHITECTURE.deb"
+release_url="https://github.com/savonet/liquidsoap-release-assets/releases/download/v2.2.1/liquidsoap_$tag_name-ubuntu-jammy-1_$ARCHITECTURE.deb"
 
 # Download the latest Liquidsoap .deb package
 curl -LO "$release_url"

@@ -62,7 +62,7 @@ git pull
 git checkout main
 cd /var/azuracast/www/frontend
 export NODE_ENV=production
-npm ci
+npm ci --include=dev
 npm run build
 EOF
 
@@ -70,14 +70,14 @@ EOF
 cd $installerHome
 supervisorctl reread
 supervisorctl update
-supervisorctl restart redis
+supervisorctl restart all || :
 
 # Migrate database
 chmod +x /var/azuracast/www/bin/console
 /var/azuracast/www/bin/console azuracast:setup:migrate
 
 # Update AzuraCast version file
-echo "rolling" >/var/azuracast/azuracast_version.txt
+echo "rolling" >| /var/azuracast/azuracast_version.txt
 
 # Ensure correct permissions post update
 chown -R azuracast.azuracast /var/azuracast

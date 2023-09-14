@@ -95,3 +95,15 @@ echo "$newVersion" >| /var/azuracast/azuracast_version.txt
 
 # Ensure correct permissions post update
 chown -R azuracast.azuracast /var/azuracast
+
+# Upgrade to latest version 0.19.1 is complete
+echo -e "\nUpgrade is Done\n"
+
+# Upgrade Liquidsoap
+echo -e "\nNow we will upgrade Liquidsoap\n"
+
+# Update Liquidsoap to latest Version
+source tools/liquidsoap/update_latest.sh || { echo "Error sourcing tools/liquidsoap/update_latest.sh"; exit 1; }
+
+# Notify the user that the update is complete
+echo -e "\nLiquidsoap Upgrade is also Done\n"
