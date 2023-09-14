@@ -59,7 +59,7 @@ su azuracast <<EOF
 cd /var/azuracast/www
 git stash
 git pull
-git checkout rolling
+git checkout main
 cd /var/azuracast/www/frontend
 export NODE_ENV=production
 npm ci

@@ -304,7 +304,7 @@ function azuracast_upgrade() {
 ##############################################################################
 function azuracast_upgrade_rrc() {
     # Installer Branch
-    git checkout rolling && chmod +x install.sh
+    git checkout main && chmod +x install.sh
 
     # Update AzuraCast
     source tools/azuracast/update/rolling_release.sh
@@ -333,7 +333,7 @@ function installer_upgrade() {
     git checkout ${set_azuracast_version} && chmod +x install.sh
 
     # Installer was upgraded
-    echo -e "Installer was upgraded to latest version ${set_azuracast_version}.\nTo use Rolling Release just do git checkout rolling."
+    echo -e "Installer was upgraded to latest version ${set_azuracast_version}.\nTo use Rolling Release just do git checkout main."
 }
 
 ##############################################################################
