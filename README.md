@@ -76,7 +76,6 @@ For versions before 0.18.5, use Liquidsoap versions below 2.2.x. Version 2.1.4 i
 *Misc*
 
 - `-z`, `--upgrade_installer`:        Upgrade Installer to latest version
-
 - `-v`, `--version`:                  Display version information
 - `-h`, `--help`:                     Display this help text
 
