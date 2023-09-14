@@ -19,5 +19,9 @@ touch "$ENV_FILE"
 chown azuracast:azuracast "$ENV_FILE"
 echo "ENABLE_WEB_UPDATER=false" >> "$ENV_FILE"
 
+if [ "$azuracast_git_version" = "scy" ]; then
+    echo "NOW_PLAYING_MAX_CONCURRENT_PROCESSES=1" >> "$ENV_FILE"
+fi
+
 # Update Icecast to latest Version
 source tools/icecastkh/update_latest.sh || { echo "Error sourcing tools/icecastkh/update_latest.sh"; exit 1; }

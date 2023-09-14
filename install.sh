@@ -274,7 +274,7 @@ function azuracast_install_rrc() {
 # Do not Use! (-x/--install_scyonly)
 ##############################################################################
 function azuracast_install_scyonly() {
-    azuracast_git_version="blub"
+    azuracast_git_version="scy"
 
     export DEBIAN_FRONTEND=noninteractive
 
