@@ -14,8 +14,10 @@ echo "$set_azuracast_version" > "/var/azuracast/azuracast_version.txt"
 chown azuracast:azuracast "/var/azuracast/azuracast_version.txt"
 
 # AzuraCast ENV Variables
-touch /var/azuracast/www/azuracast.env
-chown azuracast:azuracast "/var/azuracast/www/azuracast.env"
+ENV_FILE=/var/azuracast/www/azuracast.env
+touch "$ENV_FILE"
+chown azuracast:azuracast "$ENV_FILE"
+echo "ENABLE_WEB_UPDATER=false" >> "$ENV_FILE"
 
 # Update Icecast to latest Version
 source tools/icecastkh/update_latest.sh || { echo "Error sourcing tools/icecastkh/update_latest.sh"; exit 1; }
