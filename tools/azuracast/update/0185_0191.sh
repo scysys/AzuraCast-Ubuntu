@@ -11,7 +11,7 @@ oldVersion="0.18.5"
 newVersion="0.19.1"
 
 # Prompt the user to confirm the update
-echo -e "\n\n---\n\n"
+echo -e "\n---\n"
 read -rp "Do you have a backup of your installation? (yes or no): " yn_one
 echo
 read -rp "Do you really want to upgrade to AzuraCast Stable $newVersion? (yes or no): " yn_two
@@ -91,7 +91,7 @@ chmod +x /var/azuracast/www/bin/console
 /var/azuracast/www/bin/console azuracast:setup:migrate
 
 # Update AzuraCast version file
-echo "$newVersion" >/var/azuracast/azuracast_version.txt
+echo "$newVersion" >| /var/azuracast/azuracast_version.txt
 
 # Ensure correct permissions post update
 chown -R azuracast.azuracast /var/azuracast
