@@ -40,7 +40,7 @@ rm -rf /root/azuracast_installer && mkdir -p /root/azuracast_installer && cd /ro
 Copy and paste the entire line into your CLI.
 
 ```
-mkdir /root/azuracast_installer && cd /root/azuracast_installer && git clone https://github.com/scysys/AzuraCast-Ubuntu.git . && git checkout rolling && chmod +x install.sh && ./install.sh --install_rrc
+mkdir /root/azuracast_installer && cd /root/azuracast_installer && git clone https://github.com/scysys/AzuraCast-Ubuntu.git . && git checkout main && chmod +x install.sh && ./install.sh --install_rrc
 ```
 
 After installation, ensure everything is operational. If you identify any installer-related issues, report them here without involving the AzuraCast developers with issues specific to this repository.
