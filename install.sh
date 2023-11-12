@@ -52,7 +52,7 @@ set_azuracast_version_upgrade="0185_0191"
 
 # Commands
 LONGOPTS=help,version,upgrade,install,install_scyonly,upgrade_scyonly,icecastkh18,icecastkhlatest,icecastkhmaster,changeports,liquidsoaplatest,liquidsoapcustom,clean,upgrade_installer,install_rrc,upgrade_rrc
-OPTIONS=hvuixywtsonmczrv
+OPTIONS=hvuixywtsonmczrp
 
 if [ "$#" -eq 0 ]; then
     echo "No options specified. Use --help to learn more."
@@ -66,7 +66,7 @@ fi
 
 eval set -- "$PARSED"
 
-h=n v=n u=n i=n x=n y=n w=n t=n s=n o=n n=n m=n c=n z=n r=n v=n
+h=n v=n u=n i=n x=n y=n w=n t=n s=n o=n n=n m=n c=n z=n r=n p=n
 
 while true; do
     case "$1" in
@@ -130,8 +130,8 @@ while true; do
         r=y
         break
         ;;
-    -v | --upgrade_rrc)
-        v=y
+    -p | --upgrade_rrc)
+        p=y
         break
         ;;
     --)
@@ -300,7 +300,7 @@ function azuracast_upgrade() {
 }
 
 ##############################################################################
-# Upgrade an existing installation to latest Rolling Release of AzuraCast (-v/--upgrade_rrc)
+# Upgrade an existing installation to latest Rolling Release of AzuraCast (-p/--upgrade_rrc)
 ##############################################################################
 function azuracast_upgrade_rrc() {
     # Installer Branch
@@ -354,7 +354,7 @@ Installation / Upgrade (Stable)
 
 Installation / Upgrade (Rolling Release)
   -r, --install_rrc              Install the latest Rolling Release of AzuraCast (not recommended for production use)
-  -v, --upgrade_rrc              Upgrade to the latest Rolling Release of AzuraCast
+  -p, --upgrade_rrc              Upgrade to the latest Rolling Release of AzuraCast
 
 AzuraCast
   -c, --clean                    Clean AzuraCast's www_tmp Directory
@@ -450,7 +450,7 @@ function main() {
         azuracast_install_rrc
     fi
 
-    if [ "$v" == "y" ]; then
+    if [ "$p" == "y" ]; then
         azuracast_upgrade_rrc
     fi
 
