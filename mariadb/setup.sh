@@ -29,7 +29,11 @@ deb [arch=amd64,arm64] https://dlm.mariadb.com/repo/maxscale/latest/apt jammy ma
 # MariaDB Tools
 deb [arch=amd64] http://downloads.mariadb.com/Tools/ubuntu jammy main" | sudo tee /etc/apt/sources.list.d/mariadb.list
 
+    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys CE1A3DD5E3C94F49
+    sudo cp /etc/apt/trusted.gpg /etc/apt/trusted.gpg.d
+    
     apt_get_with_lock update -y
+
 fi
 
 apt_get_with_lock install -y mariadb-server mariadb-client
