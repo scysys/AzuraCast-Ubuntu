@@ -12,7 +12,23 @@ if [ $azuracast_git_version = "stable" ]; then
 else
     apt_get_with_lock install software-properties-common gnupg2 -y
     apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.asc'
-    add-apt-repository -y 'deb [arch=amd64] http://mariadb.mirror.globo.tech/repo/10.8/ubuntu jammy main'
+
+    echo "# MariaDB Server
+# To use a different major version of the server, or to pin to a specific minor version, change URI below.
+deb [arch=amd64,arm64] https://dlm.mariadb.com/repo/mariadb-server/10.8/repo/ubuntu jammy main
+
+deb [arch=amd64,arm64] https://dlm.mariadb.com/repo/mariadb-server/10.8/repo/ubuntu jammy main/debug
+
+
+# MariaDB MaxScale
+# To use the latest stable release of MaxScale, use "latest" as the version
+# To use the latest beta (or stable if no current beta) release of MaxScale, use "beta" as the version
+deb [arch=amd64,arm64] https://dlm.mariadb.com/repo/maxscale/latest/apt jammy main
+
+
+# MariaDB Tools
+deb [arch=amd64] http://downloads.mariadb.com/Tools/ubuntu jammy main" | sudo tee /etc/apt/sources.list.d/mariadb.list
+
     apt_get_with_lock update -y
 fi
 
